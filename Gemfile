@@ -34,6 +34,10 @@ group :test do
   gem 'rspec-rails'
 end
 
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
