@@ -30,9 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'outrageous'
 
-group :test do
-  gem 'rspec-rails'
-end
+gem 'rspec-rails'
 
 gem 'therubyracer'
 gem 'less-rails'
