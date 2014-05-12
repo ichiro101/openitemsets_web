@@ -9,7 +9,7 @@ namespace :riot do
     riot_api_key = OIS_CONFIG['riot_api']['key']
 
     items_client = Outrageous::StaticData::Item.new(:api_key => riot_api_key)
-    items = items_client.all(:itemData => 'all')
+    items = items_client.all(:itemListData => 'all')
     redis.set("items", items.to_json)
 
     puts "Updated riot api item database"
@@ -30,7 +30,7 @@ namespace :riot do
     riot_api_key = OIS_CONFIG['riot_api']['key']
 
     champions_client = Outrageous::StaticData::Champion.new(:api_key => riot_api_key)
-    champions = champions_client.all(:championData => 'all')
+    champions = champions_client.all(:champData => 'all')
     redis.set("champions", champions.to_json)
 
     puts "Updated riot api champion database"
