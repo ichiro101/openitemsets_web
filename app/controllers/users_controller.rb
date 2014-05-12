@@ -17,11 +17,7 @@ class UsersController < ApplicationController
       flash[:success] = "Successfully signed up, signed in as #{@user.username}"
       session[:user_id] = @user.id
 
-      if !cookies[:return_to].blank?
-        redirect_to cookies[:return_to]
-      else
-        redirect_to root_url
-      end
+      goto_return_url_or_root
     else
       render 'new'
     end

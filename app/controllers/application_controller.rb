@@ -26,4 +26,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def goto_return_url_or_root
+    return_url = cookies[:return_to]
+    cookies[:return_to] = nil
+    if !return_url.blank?
+      redirect_to return_url
+    else
+      redirect_to root_url
+    end
+  end
+
 end
