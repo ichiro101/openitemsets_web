@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # for riot api
 gem 'outrageous'
+gem 'redis'
 
 # testing
 gem 'rspec-rails'

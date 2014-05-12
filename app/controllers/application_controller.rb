@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def signed_in?
+    if User.where(:id => session[:user_id]).blank?
+      # if session[:user_id] is invalid, clear the session
+      session[:user_id] = nil
+    end
     !session[:user_id].blank?
   end
 
