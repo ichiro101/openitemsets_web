@@ -15,7 +15,7 @@ class CreateItemSets < ActiveRecord::Migration
 
       # default this to 0, which is the SYSTEM user, we reserve
       # for item sets that are created by our own bots
-      t.references :owner, :null => false, :default => 0
+      t.references :user, :null => false, :default => 0
 
       t.boolean :visible_to_public, :null => false, :default => false
 

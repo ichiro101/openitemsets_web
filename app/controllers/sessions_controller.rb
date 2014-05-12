@@ -1,16 +1,23 @@
 class SessionsController < ApplicationController
 
+  def new
+    @page_title = "Sign in"
+  end
+
   def create
     @user = User.authenticate(params[:username], params[:password])
 
     if @user.blank?
-      flash.now[:error] = "Invalid username/password combination"
+      flash.now[:warning] = "Invalid username/password combination"
       render 'new'
     else
       session[:user_id] = @user.id
       flash[:success] = "Signed in as #{@user.username}"
-      # TODO: return the user to where the user originally was
-      redirect_to root_url
+      if !cookies[:return_to].blank?
+        redirect_to cookies[:return_to]
+      else
+        redirect_to root_url
+      end
     end
   end
 

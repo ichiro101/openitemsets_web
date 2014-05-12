@@ -18,4 +18,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.where(:id => session[:user_id]).first
   end
 
+  def require_authentication
+    if !signed_in?
+      flash[:info] = "This action requires you to sign in"
+      cookies[:return_to] = request.url
+      redirect_to new_session_path
+    end
+  end
+
 end

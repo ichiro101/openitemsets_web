@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140512150014) do
     t.string   "role",                                           null: false
     t.text     "description"
     t.text     "associated_maps",   default: "[]"
-    t.integer  "owner_id",          default: 0,                  null: false
+    t.integer  "user_id",           default: 0,                  null: false
     t.boolean  "visible_to_public", default: false,              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
