@@ -3,6 +3,8 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   include BCrypt
 
+  validates :username, :uniqueness => true
+
   def self.authenticate(username, password)
     @user = User.where(:username => username).first
 

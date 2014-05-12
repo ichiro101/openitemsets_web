@@ -28,13 +28,19 @@ gem 'spring',        group: :development
 
 gem 'bcrypt', '~> 3.1.7'
 
+# for riot api
 gem 'outrageous'
 
+# testing
 gem 'rspec-rails'
+gem 'capybara'
+gem 'factory_girl_rails'
 
+# bootstrap stuff
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'simple_form'
 
 # Use unicorn as the app server
 # gem 'unicorn'
