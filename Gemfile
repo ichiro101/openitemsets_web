@@ -42,6 +42,9 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 
+# deployment
+gem 'thin'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
