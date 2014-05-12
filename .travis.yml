@@ -1,7 +1,7 @@
 language: ruby
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database OpenItemSets_test;' -U postgres
+  - bundle exec rake db:setup RAILS_ENV=test
 script: 
   - bundle exec rspec spec/
 rvm:
