@@ -37,10 +37,8 @@ gem 'capybara'
 gem 'factory_girl_rails'
 
 # bootstrap stuff
-gem 'therubyracer'
-gem 'less-rails'
-gem 'twitter-bootstrap-rails'
-gem 'simple_form'
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap_form'
 
 # deployment
 gem 'thin'
