@@ -3,6 +3,11 @@ OIS_CONFIG = YAML.load_file(Rails.root.join('config', 'ois_config.yml'))
 
 namespace :riot do
 
+  desc "Sync all the static data we need from the Riot static data API"
+  task :sync_all => [:items, :champions] do
+    puts "all done!"
+  end
+
   desc "This task syncs the current item database from riot to our redis database"
   task :items do
     redis = Redis.new
