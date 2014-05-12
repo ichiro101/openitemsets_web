@@ -1,6 +1,7 @@
 language: ruby
 before_script:
   - cp config/database.travis.yml config/database.yml
+  - cp config/ois_config.example.yml config/ois_config.yml
   - bundle exec rake db:setup RAILS_ENV=test
 script: 
   - bundle exec rspec spec/
