@@ -14,7 +14,8 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
 
     if @user.save
-      flash[:success] = "Successfully signed up."
+      flash[:success] = "Successfully signed up, signed in as #{@user.username}"
+      session[:user_id] = @user.id
       redirect_to root_url
     else
       render 'new'
