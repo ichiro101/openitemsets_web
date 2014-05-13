@@ -1,24 +1,18 @@
 
 <!-- ITEM SET LISTING AREA -->
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-lg-10">
 <% @item_sets.each do |item_set| %>
-  <div class="media">
-    <a class="pull-left" href="<%= item_set_path(item_set) %>">
-      <img width="64px" height="64px" class="media-object" src="<%= item_set.champion_image_url %>" alt="Portrait of <%= item_set.champion %>">
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading"><%= link_to(item_set.display_name, item_set_path(item_set)) %></h4>
-      <p><%= item_set.champion %>, <%= item_set.role %> by <%= item_set.user.display_name %></p>
-    </div><!-- media-body -->
-  </div><!-- media -->
+  <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
 <% end %>
+  <%= paginate @item_sets %>
   </div><!-- col -->
-</div><!-- row -->
-
-<div class="row">
-  <div class="col-xs-12">
-    <h2>Actions</h2>
-    <%= link_to("Create Item Set", new_item_set_path, :class => "btn btn-default") %>
+  <div class="col-md-2">
+    <div class="well">
+      <h2>Actions</h2>
+      <p>
+        <%= link_to("Create Item Set", new_item_set_path, :class => "btn btn-default") %>
+      </p>
+    </div><!-- well -->
   </div><!-- col -->
 </div><!-- row -->

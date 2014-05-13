@@ -29,6 +29,7 @@ gem 'spring',        group: :development
 # functionalities...
 gem 'bcrypt', '~> 3.1.7'
 gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 
 # for riot api
 gem 'outrageous'
@@ -38,6 +39,7 @@ gem 'redis'
 gem 'rspec-rails'
 gem 'capybara'
 gem 'factory_girl_rails'
+gem 'faker'
 
 # bootstrap stuff
 gem 'bootstrap-sass', '~> 3.1.1'

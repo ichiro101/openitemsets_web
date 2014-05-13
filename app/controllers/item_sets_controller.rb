@@ -3,7 +3,7 @@ class ItemSetsController < ApplicationController
   before_filter :require_authentication, :only => [:new, :create, :edit, :update]
 
   def index
-    @item_sets = ItemSet.where(:visible_to_public => true)
+    @item_sets = ItemSet.where(:visible_to_public => true).page params[:page]
 
     @page_title = "Browse Item Sets"
   end
