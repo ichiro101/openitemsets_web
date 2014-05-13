@@ -47,6 +47,16 @@ class ItemSetsController < ApplicationController
       flash[:danger] = "Unauthorized action"
       redirect_to item_set_path(@item_set)
     end
+
+    @item_set.title = params[:item_set][:title]
+    @item_set.champion = params[:item_set][:champion]
+    @item_set.role = params[:item_set][:role]
+    @item_set.visible_to_public = params[:item_set][:visible_to_public]
+
+    if @item_set.save
+      flash[:success] = "Successfully updated item set"
+      redirect_to item_set_path(@item_set)
+    end
   end
 
   def show
