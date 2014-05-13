@@ -1,4 +1,5 @@
 class ItemSet < ActiveRecord::Base
+  # Define the roles that are valid for the item set
   ROLES = [
     "Top",
     "Mid",
@@ -7,6 +8,8 @@ class ItemSet < ActiveRecord::Base
     "Jungle"
   ]
 
+  # This class solely exists to get around
+  # rails-bootstrap-forms's dumb limitation in the collections helper
   class Visibility
     attr_accessor :id, :value
     def self.all
