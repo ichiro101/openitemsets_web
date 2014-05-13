@@ -1,1 +1,7 @@
 <%= link_to("Create Item Set", new_item_set_path, :class => "btn btn-default") %>
+
+<ul>
+<% @item_sets.each do |item_set| %>
+  <li><%= link_to("Item set #{item_set.id}", item_set_path(item_set)) %></li>
+<% end %>
+</ul>

@@ -55,4 +55,19 @@ class ItemSetsController < ApplicationController
     @page_title = "View Item Set: #{@item_set.title}"
   end
 
+  def destroy
+    @item_set = ItemSet.find(params[:id])
+
+    # you should only be able to destroy item sets you own
+    if @item_set.user_id != current_user.id
+      flash[:danger] = "Unauthorized action"
+      redirect_to item_set_path(@item_set)
+    end
+
+    @item_set.destroy
+
+    flash[:success] = "This item set has been deleted"
+    redirect_to items_set_path
+  end
+
 end
