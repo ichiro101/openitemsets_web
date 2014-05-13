@@ -3,6 +3,8 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   include BCrypt
 
+  has_many :item_sets
+
   validates :username, :uniqueness => true
 
   def self.authenticate(username, password)
@@ -24,6 +26,10 @@ class User < ActiveRecord::Base
   def password= (new_password)
     @password = Password.create(new_password)
     self.hashed_password = @password
+  end
+
+  def display_name
+    username
   end
 
 end

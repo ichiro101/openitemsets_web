@@ -35,4 +35,16 @@ class ItemSet < ActiveRecord::Base
   validates :champion, :inclusion => {:in => Champion.names}, :presence => true
   validates :role, :inclusion => {:in => ROLES}, :presence => true
 
+  def champion_image_url
+    "http://static.openitemsets.com/img/champion/#{self.champion}.png"
+  end
+
+  def display_name
+    if self.title.blank?
+      "Untitled Item Set, #{self.champion}: #{self.role}"
+    else
+      self.title
+    end
+  end
+
 end

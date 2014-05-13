@@ -3,7 +3,7 @@ class ItemSetsController < ApplicationController
   before_filter :require_authentication, :only => [:new, :create, :edit, :update]
 
   def index
-    @item_sets = ItemSet.all
+    @item_sets = ItemSet.where(:visible_to_public => true)
 
     @page_title = "Browse Item Sets"
   end
@@ -24,7 +24,7 @@ class ItemSetsController < ApplicationController
 
     if @item_set.save
       flash[:success] = "Succesfully created the item set"
-      redirect_to item_set_path(@item_set)
+      redirect_to edit_item_set_path(@item_set)
     else
       render 'new'
     end
