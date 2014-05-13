@@ -49,13 +49,15 @@ class ItemSetsController < ApplicationController
     end
 
     @item_set.title = params[:item_set][:title]
-    @item_set.champion = params[:item_set][:champion]
     @item_set.role = params[:item_set][:role]
     @item_set.visible_to_public = params[:item_set][:visible_to_public]
 
     if @item_set.save
-      flash[:success] = "Successfully updated item set"
-      redirect_to item_set_path(@item_set)
+      flash[:success] = "Successfully updated item set meta data"
+      redirect_to edit_item_set_path(@item_set)
+    else
+      @page_title = "Editing Item Set"
+      render 'edit'
     end
   end
 
