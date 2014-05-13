@@ -1,7 +1,7 @@
 
 <%= bootstrap_form_for(@item_set, :layout => :horizontal) do |f| %>
   <%= f.text_field :title %>
-  <%= f.text_field :champion %>
+  <%= f.collection_select :champion, Champion.all, :id, :display_name %>
   <%= f.radio_buttons_collection :role, ItemSet::ROLES, :to_s, :to_s %>
 
   <%= f.submit "Submit" %>

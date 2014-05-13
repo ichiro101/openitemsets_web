@@ -45,6 +45,9 @@ class ItemSetsController < ApplicationController
     @item_set = ItemSet.find(params[:id])
     @page_title = "Edit Item Set"
 
+    gon.push({
+      :itemData => Item.item_hash["data"]
+    })
   end
 
   def update

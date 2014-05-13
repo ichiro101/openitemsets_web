@@ -26,10 +26,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-# functionalities...
+# backend functionalities...
 gem 'bcrypt', '~> 3.1.7'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'gon'
 
 # for riot api
 gem 'outrageous'
@@ -41,9 +42,10 @@ gem 'capybara'
 gem 'factory_girl_rails'
 gem 'faker'
 
-# bootstrap stuff
+# bootstrap and frontend stuff
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootstrap_form'
+gem 'angularjs-rails'
 
 # deployment
 gem 'thin'
