@@ -66,7 +66,7 @@ class ItemSetsController < ApplicationController
   def show
     @item_set = ItemSet.find(params[:id])
 
-    @page_title = "View Item Set: #{@item_set.title}"
+    @page_title = "View Item Set: #{@item_set.display_name}"
   end
 
   def destroy
