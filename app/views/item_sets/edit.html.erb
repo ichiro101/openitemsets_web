@@ -1,7 +1,6 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h4>Meta Data</h4>
     <%= bootstrap_form_for(@item_set, :layout => :horizontal) do |f| %>
       <%= f.text_field :title %>
       <%= f.radio_buttons_collection :role, ItemSet::ROLES, :to_s, :to_s %>

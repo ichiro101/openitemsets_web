@@ -9,9 +9,8 @@
     <div class="col-md-2">
       <div class="well">
         <h2>Actions</h2>
-        <p>
-          <%= link_to("Edit", edit_item_set_path(@item_set), :class => "btn btn-default") %>
-        </p>
+        <%= link_to("Edit Item Set", edit_children_item_set_path(@item_set), :class => "btn btn-default") %>
+        <%= link_to("Edit Metadata", edit_item_set_path(@item_set), :class => "btn btn-default") %>
       </div><!-- well -->
     </div><!-- col -->
   <% end %>
