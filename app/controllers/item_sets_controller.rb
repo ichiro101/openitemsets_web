@@ -24,14 +24,29 @@ class ItemSetsController < ApplicationController
 
     if @item_set.save
       flash[:success] = "Succesfully created the item set"
-      redirect_to 
+      redirect_to item_set_path(@item_set)
     end
   end
 
   def edit
     @item_set = ItemSet.find(params[:id])
-
     @page_title = "Edit Item Set"
+
+    # you should only be able to edit item sets you own
+    if @item_set.user_id != current_user.id
+      flash[:danger] = "Unauthorized action"
+      redirect_to item_set_path(@item_set)
+    end
+  end
+
+  def update
+    @item_set = ItemSet.find(params[:id])
+
+    # you should only be able to edit item sets you own
+    if @item_set.user_id != current_user.id
+      flash[:danger] = "Unauthorized action"
+      redirect_to item_set_path(@item_set)
+    end
   end
 
   def show

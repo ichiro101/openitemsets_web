@@ -1,7 +1,7 @@
 class CreateItemSets < ActiveRecord::Migration
   def change
     create_table :item_sets do |t|
-      t.string :title, :null => false
+      t.string :title, :default => ""
       t.string :ingame_title, :null => false, :default => "Untitled Itemset"
       t.string :champion, :null => false, :default => "Ahri"
       t.string :role, :null => false

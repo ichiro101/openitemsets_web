@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20140512150014) do
   end
 
   create_table "item_sets", force: true do |t|
-    t.string   "title",                                          null: false
+    t.string   "title",             default: ""
     t.string   "ingame_title",      default: "Untitled Itemset", null: false
     t.string   "champion",          default: "Ahri",             null: false
     t.string   "role",                                           null: false
