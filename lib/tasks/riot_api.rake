@@ -8,6 +8,34 @@ namespace :riot do
     puts "all done!"
   end
 
+  desc "Store items and champion data into a text files"
+  task :store_preset do
+    redis = Redis.new
+
+    items_string = redis.get("items")
+    champions_string = redis.get("champions")
+
+    items_file = File.new(Rails.root.join('spec', 'items.json'), 'w')
+    items_file.syswrite(items_string)
+
+    champions_file = File.new(Rails.root.join('spec', 'champions.json'), 'w')
+    champions_file.syswrite(champions_string)
+
+    puts "files written in spec directory"
+  end
+
+  desc "Load txt file presets into the redis database"
+  task :load_preset do
+    items_file = File.new(Rails.root.join('spec', 'items.json'), 'r')
+    champions_file = File.new(Rails.root.join('spec', 'champions.json'), 'r')
+
+    redis = Redis.new
+    redis.set("items", items_file.read)
+    redis.set("champions", champions_file.read)
+
+    puts "loaded preset"
+  end
+
   desc "This task syncs the current item database from riot to our redis database"
   task :items do
     redis = Redis.new

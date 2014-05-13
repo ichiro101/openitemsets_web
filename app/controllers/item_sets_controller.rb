@@ -25,6 +25,8 @@ class ItemSetsController < ApplicationController
     if @item_set.save
       flash[:success] = "Succesfully created the item set"
       redirect_to item_set_path(@item_set)
+    else
+      render 'new'
     end
   end
 

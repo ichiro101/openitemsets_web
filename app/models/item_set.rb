@@ -27,9 +27,11 @@ class ItemSet < ActiveRecord::Base
     end
   end
 
+  # active record relations of ItemSet
   has_many :item_set_blocks, :dependent => :delete_all
   belongs_to :user
 
+  # rails validations
   validates :champion, :inclusion => {:in => Champion.names}, :presence => true
   validates :role, :inclusion => {:in => ROLES}, :presence => true
 
