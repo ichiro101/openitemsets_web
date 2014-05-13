@@ -1,3 +1,18 @@
-<%= link_to("Edit", edit_item_set_path(@item_set), :class => "btn btn-default") %>
 
-<p>Information about the item set</p>
+<div class="row">
+  <div class="col-lg-10">
+    <p>Information about the item set</p>
+
+  </div><!-- col -->
+
+  <% if signed_in? and current_user.id == @item_set.user_id %>
+    <div class="col-md-2">
+      <div class="well">
+        <h2>Actions</h2>
+        <p>
+          <%= link_to("Edit", edit_item_set_path(@item_set), :class => "btn btn-default") %>
+        </p>
+      </div><!-- well -->
+    </div><!-- col -->
+  <% end %>
+</div><!-- row -->

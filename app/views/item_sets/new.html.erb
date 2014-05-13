@@ -2,7 +2,7 @@
 <%= bootstrap_form_for(@item_set) do |f| %>
   <%= f.text_field :title %>
   <%= f.text_field :champion %>
-  <%= f.text_field :role %>
+  <%= f.radio_buttons_collection :role, ItemSet::ROLES, :to_s, :to_s %>
 
   <%= f.submit "Submit" %>
 <% end %>
