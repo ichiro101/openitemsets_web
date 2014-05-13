@@ -4,7 +4,11 @@
       <img width="64px" height="64px" class="media-object" src="<%= item_set.champion_image_url %>" alt="Portrait of <%= item_set.champion %>">
     </a>
     <div class="media-body">
-      <h4 class="media-heading"><%= link_to(item_set.display_name, item_set_path(item_set)) %></h4>
-      <p><%= item_set.champion %>, <%= item_set.role %> by <%= item_set.user.display_name %></p>
+      <h4 class="media-heading"><%= link_to(item_set.display_name, item_set_path(item_set)) %>
+    </h4>
+      <%= item_set.champion %>, <%= item_set.role %> by <%= link_to(item_set.user.display_name, profile_user_path(item_set.user)) %>
+      <% if !item_set.visible_to_public %>
+        <em>-- This item set is hidden from public view</em>
+      <% end %>
     </div><!-- media-body -->
   </div><!-- media -->

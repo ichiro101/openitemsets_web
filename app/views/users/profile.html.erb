@@ -1,0 +1,9 @@
+
+<div class="row">
+  <div class="col-lg-6">
+    <h3>Item Sets Created</h3>
+    <% @user.item_sets.each do |item_set| %>
+      <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
+    <% end %>
+  </div><!-- col -->
+</div>

@@ -23,4 +23,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    @user = User.where(:id => params[:id]).first
+    @page_title = "Profile for #{@user.display_name}"
+  end
+
 end

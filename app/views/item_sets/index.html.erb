@@ -2,9 +2,9 @@
 <!-- ITEM SET LISTING AREA -->
 <div class="row">
   <div class="col-lg-10">
-<% @item_sets.each do |item_set| %>
-  <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
-<% end %>
+    <% @item_sets.each do |item_set| %>
+      <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
+    <% end %>
   <%= paginate @item_sets %>
   </div><!-- col -->
   <div class="col-md-2">
