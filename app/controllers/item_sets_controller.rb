@@ -43,7 +43,6 @@ class ItemSetsController < ApplicationController
 
   def edit_children
     @item_set = ItemSet.find(params[:id])
-    @page_title = "Edit Item Set"
 
     gon.push({
       :itemData => Item.item_hash["data"]
