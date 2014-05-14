@@ -1,13 +1,15 @@
 <div ng-app="itemSet" ng-controller="itemSetsController" class="row">
   <h1>Edit Item Set for <%= @item_set.champion %></h1>
+
+  <!-- SHOP AREA -->
   <div class="col-md-6">
     <input class="form-control" placeholder="Filter">
     <div class="row">
       <div class="col-sm-4">
-        <div class="item-shop-category">
+        <div class="item-shop-category" ng-click="clearFilters()">
           All Items
         </div>
-        <div class="item-shop-category">
+        <div class="item-shop-category" ng-click="addCategoryFilter('Tools')">
           Tools
         </div>
             <div class="checkbox">
@@ -28,7 +30,7 @@
                 Vision &amp; Trinkets
               </label>
             </div><!-- checkbox -->
-        <div class="item-shop-category">
+        <div class="item-shop-category" ng-click="addCategoryFilter('Defense')">
           Defense
         </div>
             <div class="checkbox">
@@ -61,7 +63,7 @@
                 Tenacity
               </label>
             </div><!-- checkbox -->
-        <div class="item-shop-category">
+        <div class="item-shop-category" ng-click="addCategoryFilter('Attack')">
           Attack
         </div>
             <div class="checkbox">
@@ -88,7 +90,7 @@
                 Life Steal
               </label>
             </div><!-- checkbox -->
-        <div class="item-shop-category">
+        <div class="item-shop-category" ng-click="addCategoryFilter('Magic')">
           Magic
         </div>
             <div class="checkbox">
@@ -121,7 +123,7 @@
                 Mana Regen
               </label>
             </div><!-- checkbox -->
-        <div class="item-shop-category">
+        <div class="item-shop-category" ng-click="addCategoryFilter('Movement')">
           Movement
         </div>
             <div class="checkbox">
@@ -149,6 +151,12 @@
       </div><!-- col-sm-8 -->
     </div><!-- row -->
   </div><!-- col-sm-6 -->
+  <!-- END OF THE SHOP AREA -->
+
+
+  <!-- ITEM SET BUILDING AREA -->
   <div class="col-sm-6">
   </div>
-</div><!-- container -->
+  <!-- END OF ITEM SET BUILDING AREA -->
+
+</div><!-- row -->

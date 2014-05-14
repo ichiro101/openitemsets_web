@@ -1,9 +1,7 @@
 itemSetNamespace = angular.module('itemSet', [])
 
-itemSetNamespace.controller("itemSetsController",  ($scope) ->
-  $scope.allItems = gon.itemData
-
-  purchasableItems = _.filter($scope.allItems, (itemObject) ->
+defaultFilters = (itemData) ->
+  purchasableItems = _.filter(itemData, (itemObject) ->
     itemObject.gold.purchasable
   )
 
@@ -11,6 +9,98 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
     itemObject.gold.total
   )
 
-  $scope.selectedItems = sortedItems
+tagFilter = (itemData, filter) ->
+  _.filter(itemData, (itemObject) ->
+    _.contains(filter, itemObject.tags)
+  )
 
+orFilter = (itemData, orFilter) ->
+  _.filter(itemData, (itemObject) ->
+    result = false
+    for filterObject in orFilter
+      result = result or _.contains(itemObject.tags, filterObject)
+
+      # early return if it's true
+      if result
+        return result
+    result
+  )
+
+itemSetNamespace.controller("itemSetsController",  ($scope) ->
+  $scope.textFilter = ""
+  $scope.selectedCategoryFilter = "All"
+  $scope.tagFilter = []
+  $scope.orFilter = []
+
+
+  $scope.clearFilters = () ->
+    $scope.tagFilter = []
+    $scope.orFilter = []
+
+    $scope.performFilter()
+
+
+  # categorical filters are filtered
+  # by an OR operation
+  $scope.addCategoryFilter = (filter) ->
+    if filter == "Tools"
+      $scope.selectedCategoryFilter = "Tools"
+      $scope.tagFilter = []
+      $scope.orFilter = []
+      $scope.orFilter.push('Consumable')
+      $scope.orFilter.push('GoldPer')
+      $scope.orFilter.push('Vision')
+      $scope.orFilter.push('Trinket')
+    else if filter == "Defense"
+      $scope.selectedCategoryFilter = "Defense"
+      $scope.tagFilter = []
+      $scope.orFilter = []
+      $scope.orFilter.push('Health')
+      $scope.orFilter.push('Armor')
+      $scope.orFilter.push('SpellBlock')
+      $scope.orFilter.push('HealthRegen')
+      $scope.orFilter.push('Tenacity')
+    else if filter == "Attack"
+      $scope.selectedCategoryFilter = "Attack"
+      $scope.tagFilter = []
+      $scope.orFilter = []
+      $scope.orFilter.push('Damage')
+      $scope.orFilter.push('CriticalStrike')
+      $scope.orFilter.push('AttackSpeed')
+      $scope.orFilter.push('Lifesteal')
+    else if filter == "Magic"
+      $scope.selectedCategoryFilter = "Magic"
+      $scope.tagFilter = []
+      $scope.orFilter = []
+      $scope.orFilter.push('SpellDamage')
+      $scope.orFilter.push('CooldownReduction')
+      $scope.orFilter.push('SpellVamp')
+      $scope.orFilter.push('Mana')
+      $scope.orFilter.push('ManaRegen')
+
+    else if filter == "Movement"
+      $scope.selectedCategoryFilter = "Movement"
+      $scope.tagFilter = []
+      $scope.orFilter = []
+      $scope.orFilter.push('Boots')
+      $scope.orFilter.push('NonbootsMovement')
+
+
+    $scope.performFilter()
+
+  # perform the actual filtering
+  $scope.performFilter = () ->
+    itemData = gon.itemData
+
+    if $scope.tagFilter.length > 0
+      itemData = tagFilter(itemData, $scope.tagFilter)
+
+    if $scope.orFilter.length > 0
+      console.log("or filter performed")
+      itemData = orFilter(itemData, $scope.orFilter)
+
+    $scope.selectedItems = defaultFilters(itemData)
+  
+
+  $scope.performFilter()
 )

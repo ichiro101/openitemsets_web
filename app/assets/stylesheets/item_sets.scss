@@ -4,6 +4,12 @@ div.item-shop-category {
   color: #000;
 }
 
+div.item-shop-category:hover {
+  background-color: #ddd;
+  color: #AF5B0A;
+  cursor: pointer;
+}
+
 div.item {
   float: left;
   border: solid 1px;
