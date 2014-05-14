@@ -6,4 +6,17 @@ div.item-shop-category {
 
 div.item {
   float: left;
+  border: solid 1px;
+  margin: 5px;
+
+  img {
+    width: 48px;
+    height: 48px;
+    display: block;
+  }
+
+  span {
+    text-align: center;
+    display: block;
+  }
 }
