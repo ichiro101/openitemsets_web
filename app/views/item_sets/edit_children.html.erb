@@ -1,4 +1,4 @@
-<div ng-controller="itemSetsController" class="row">
+<div ng-app="itemSet" ng-controller="itemSetsController" class="row">
   <h1>Edit Item Set</h1>
   <div class="col-md-6">
     <input class="form-control" placeholder="Filter">
@@ -139,8 +139,13 @@
       </div><!-- col-sm-4 -->
       <div class="col-sm-8">
         <h4>Item List</h4>
-        <p>Drag these items onto the item set panel, or click on them to add to the item set.</p>
-
+        <div id="item-shop">
+          <p>Drag these items onto the item set panel, or click on them to add to the item set.</p>
+          <div class="item" ng-repeat="item in selectedItems">
+            <img src="http://static.openitemsets.com/img/item/{{item.id}}.png"></img>
+            {{item.gold.total}}
+          </div><!-- item -->
+        </div><!-- item-shop -->
       </div><!-- col-sm-8 -->
     </div><!-- row -->
   </div><!-- col-sm-6 -->
