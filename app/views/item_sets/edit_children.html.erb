@@ -156,6 +156,35 @@
 
   <!-- ITEM SET BUILDING AREA -->
   <div class="col-sm-6">
+    <h4>Maps</h4>
+    <div class="radio">
+      <label>
+        <input ng-model="mapOption" type="radio" name="mapOption" value="1" checked>
+        Allow this Item Set to appear for any map
+      </label>
+    </div><!-- radio -->
+    <div class="radio">
+      <label>
+        <input ng-model="mapOption" type="radio" name="mapOption" value="0">
+        Choose a specific map for this Item Set
+      </label>
+    </div><!-- radio -->
+    <div id="specific-map-options">
+      <label class="radio-inline">
+        <input type="radio" ng-model="specificMap" value="1" name="specificMap" checked> Summoner's Rift
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="specificMap" value="8" name="specificMap"> The Crystal Scar
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="specificMap" value="4" name="specificMap"> The Twisted Treeline
+      </label>
+      <label class="radio-inline">
+        <input type="radio" ng-model="specificMap" value="12" name="specificMap"> Howling Abyss
+      </label>
+    </div><!-- specific map options -->
+
+      <h4>Item Set</h4>
   </div>
   <!-- END OF ITEM SET BUILDING AREA -->
 

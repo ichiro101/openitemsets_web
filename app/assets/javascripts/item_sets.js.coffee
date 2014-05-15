@@ -29,6 +29,7 @@ orFilter = (itemData, orFilter) ->
 itemSetNamespace.controller("itemSetsController",  ($scope) ->
   $scope.textFilter = ""
   $scope.selectedCategoryFilter = "All"
+  $scope.mapOption = 1
   $scope.tagFilter = []
   $scope.orFilter = []
 
@@ -107,11 +108,4 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
   
 
   $scope.performFilter()
-)
-
-itemSetNamespace.directive('tagCheckbox', () ->
-  restrict: 'A'
-  link: (scope, element, attrs) ->
-    console.log(attrs.tagCheckbox)
-
 )
