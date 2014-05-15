@@ -143,7 +143,7 @@
         <h4>Item List</h4>
         <div id="item-shop">
           <p>Drag these items onto the item set panel, or click on them to add to the item set.</p>
-          <div item-draggable class="item" ng-repeat="item in selectedItems | filter:query">
+          <div item-draggable class="item" ng-repeat="item in selectedItems | filter:query" data-from-shop="1" data-item-id="{{item.id}}">
             <img ng-src="http://static.openitemsets.com/img/item/{{item.id}}.png"></img>
             <span>{{item.gold.total}}</span>
           </div><!-- item -->
@@ -187,7 +187,7 @@
     <!-- ITEM SET BUILDING AREA -->
     <h4>Item Set</h4>
     <!-- END OF ITEM SET BUILDING AREA -->
-    <div item-droppable ng-repeat="blockElement in itemSetBlocks" class="item-set-block well">
+    <div item-droppable ng-repeat="blockElement in itemSetBlocks" class="item-set-block well" data-index="{{$index}}">
       <div class="row">
         <div class="col-xs-11">
           <input class="form-control" value="{{blockElement.name}}">
@@ -196,7 +196,7 @@
           <button class="close">&times;</button>
         </div>
       </div>
-      <div item-draggable class="item" ng-repeat="itemId in blockElement.items">
+      <div set-item-draggable class="item" ng-repeat="itemId in blockElement.items" data-index="{{$index}}">
         <img ng-src="http://static.openitemsets.com/img/item/{{itemId}}.png"></img>
         <span>{{itemData[itemId].gold.total}}</span>
       </div><!-- item -->

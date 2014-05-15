@@ -160,13 +160,31 @@ itemSetNamespace.directive('itemDraggable', () ->
     )
 )
 
+itemSetNamespace.directive('setItemDraggable', () ->
+  restrict: 'A'
+  link: (scope, elem, attrs) ->
+    elem.draggable(
+      revert: true
+    )
+)
+
 itemSetNamespace.directive('itemDroppable', () ->
   restrict: 'A'
   link: (scope, elem, attrs) ->
     elem.droppable(
       accept: ".item"
       drop: (event, ui) ->
-        console.log("Item was Dropped")
-        # $(this).append($(ui.draggable).clone())
+        # only execute these if the item is actually from shop
+        if ($(ui.draggable).attr("data-from-shop") != undefined)
+          # get the index of the item set block where the item was dropped
+          # to
+          blockIndex = attrs.index
+
+          # append the item to the end of the block item set
+          itemId = $(ui.draggable).attr("data-item-id")
+          itemId = parseInt(itemId)
+          scope.$parent.itemSetBlocks[blockIndex].items.push(itemId)
+
+          scope.$parent.$apply()
     )
 )
