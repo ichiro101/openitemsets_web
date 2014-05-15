@@ -12,6 +12,7 @@
 //
 //= require underscore
 //= require angular
+//= require checklist-model
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap

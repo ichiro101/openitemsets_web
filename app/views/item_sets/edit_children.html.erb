@@ -3,7 +3,7 @@
 
   <!-- SHOP AREA -->
   <div class="col-md-6">
-    <input class="form-control" placeholder="Filter">
+    <input class="form-control" ng-model="query" placeholder="Filter">
     <div class="row">
       <div class="col-sm-4">
         <div class="item-shop-category" ng-click="clearFilters()">
@@ -14,19 +14,19 @@
         </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Consumable"' type="checkbox" value="">
                 Consumable
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"GoldPer"' type="checkbox" value="">
                 Gold Income
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Vision"' type="checkbox" value="">
                 Vision &amp; Trinkets
               </label>
             </div><!-- checkbox -->
@@ -35,31 +35,31 @@
         </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Health"' type="checkbox" value="">
                 Health
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Armor"' type="checkbox" value="">
                 Armor
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"SpellBlock"' type="checkbox" value="">
                 Magic Resist
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"HealthRegen"' type="checkbox" value="">
                 Health Regen
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Tenacity"' type="checkbox" value="">
                 Tenacity
               </label>
             </div><!-- checkbox -->
@@ -68,25 +68,25 @@
         </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Damage"' type="checkbox" value="">
                 Damage
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"CriticalStrike"' type="checkbox" value="">
                 Critical Strike
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"AttackSpeed"' type="checkbox" value="">
                 Attack Speed
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"LifeSteal"' type="checkbox" value="">
                 Life Steal
               </label>
             </div><!-- checkbox -->
@@ -95,31 +95,31 @@
         </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"SpellDamage"' type="checkbox" value="">
                 Ability Power
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"CooldownReduction"' type="checkbox" value="">
                 Cooldown Reduction
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"SpellVamp"' type="checkbox" value="">
                 Spell Vamp
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Mana"' type="checkbox" value="">
                 Mana
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"ManaRegen"' type="checkbox" value="">
                 Mana Regen
               </label>
             </div><!-- checkbox -->
@@ -128,13 +128,13 @@
         </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"Boots"' type="checkbox" value="">
                 Boots
               </label>
             </div><!-- checkbox -->
             <div class="checkbox">
               <label>
-                <input type="checkbox" value="">
+                <input checklist-model="tagFilter" checklist-value='"NonbootsMovement"' type="checkbox" value="">
                 Other Movement
               </label>
             </div><!-- checkbox -->
@@ -143,8 +143,8 @@
         <h4>Item List</h4>
         <div id="item-shop">
           <p>Drag these items onto the item set panel, or click on them to add to the item set.</p>
-          <div class="item" ng-repeat="item in selectedItems">
-            <img src="http://static.openitemsets.com/img/item/{{item.id}}.png"></img>
+          <div class="item" ng-repeat="item in selectedItems | filter:query">
+            <img ng-src="http://static.openitemsets.com/img/item/{{item.id}}.png"></img>
             <span>{{item.gold.total}}</span>
           </div><!-- item -->
         </div><!-- item-shop -->

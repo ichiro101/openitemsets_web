@@ -1,4 +1,4 @@
-itemSetNamespace = angular.module('itemSet', [])
+itemSetNamespace = angular.module('itemSet', ["checklist-model"])
 
 defaultFilters = (itemData) ->
   purchasableItems = _.filter(itemData, (itemObject) ->
@@ -11,7 +11,7 @@ defaultFilters = (itemData) ->
 
 tagFilter = (itemData, filter) ->
   _.filter(itemData, (itemObject) ->
-    _.contains(filter, itemObject.tags)
+    _.intersection(itemObject.tags, filter).length == filter.length
   )
 
 orFilter = (itemData, orFilter) ->
@@ -36,9 +36,14 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
   $scope.clearFilters = () ->
     $scope.tagFilter = []
     $scope.orFilter = []
-
     $scope.performFilter()
 
+  $scope.$watch('tagFilter', () ->
+    $scope.performFilter()
+    # once tag filter has changed, reset all the
+    # categorical filters as well
+    $scope.orFilter = []
+  , true)
 
   # categorical filters are filtered
   # by an OR operation
@@ -96,11 +101,17 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
       itemData = tagFilter(itemData, $scope.tagFilter)
 
     if $scope.orFilter.length > 0
-      console.log("or filter performed")
       itemData = orFilter(itemData, $scope.orFilter)
 
     $scope.selectedItems = defaultFilters(itemData)
   
 
   $scope.performFilter()
+)
+
+itemSetNamespace.directive('tagCheckbox', () ->
+  restrict: 'A'
+  link: (scope, element, attrs) ->
+    console.log(attrs.tagCheckbox)
+
 )
