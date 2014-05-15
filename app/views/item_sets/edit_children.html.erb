@@ -189,7 +189,12 @@
     <!-- END OF ITEM SET BUILDING AREA -->
     <div item-droppable ng-repeat="blockElement in itemSetBlocks" class="item-set-block well">
       <div class="row">
-        <input class="form-control" value="{{blockElement.name}}">
+        <div class="col-xs-11">
+          <input class="form-control" value="{{blockElement.name}}">
+        </div>
+        <div class="col-xs-1">
+          <button class="close">&times;</button>
+        </div>
       </div>
       <div item-draggable class="item" ng-repeat="itemId in blockElement.items">
         <img ng-src="http://static.openitemsets.com/img/item/{{itemId}}.png"></img>
