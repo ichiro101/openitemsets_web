@@ -1,5 +1,9 @@
 itemSetNamespace = angular.module('itemSet', ["checklist-model"])
 
+$(document).on('ready page:load', ->
+  angular.bootstrap(document.body, ['itemSet'])
+)
+
 defaultFilters = (itemData) ->
   purchasableItems = _.filter(itemData, (itemObject) ->
     itemObject.gold.purchasable

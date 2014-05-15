@@ -11,25 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512150014) do
+ActiveRecord::Schema.define(version: 20140512145946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "block_items", force: true do |t|
-    t.integer  "item_set_block_id"
-    t.integer  "item_id"
-    t.integer  "rank"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "item_set_blocks", force: true do |t|
-    t.integer  "item_set_id"
-    t.string   "block_title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "item_sets", force: true do |t|
     t.string   "title",             default: ""
@@ -40,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140512150014) do
     t.text     "associated_maps",   default: "[]"
     t.integer  "user_id",           default: 0,                  null: false
     t.boolean  "visible_to_public", default: false,              null: false
+    t.text     "item_set_json"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

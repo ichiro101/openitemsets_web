@@ -17,4 +17,5 @@
 //= require angular
 //= require checklist-model
 //= require bootstrap
+//= require turbolinks
 //= require_tree .
