@@ -27,19 +27,47 @@ orFilter = (itemData, orFilter) ->
   )
 
 itemSetNamespace.controller("itemSetsController",  ($scope) ->
-  $scope.textFilter = ""
-  $scope.selectedCategoryFilter = "All"
-  $scope.selectedMap = 1
+  # itemData which was retrieved from redis
+  $scope.itemData = gon.itemData
+
+  # value of 1 means this item set is universal, value of
+  # 0 means the item set is restricted
   $scope.mapOption = 1
+
+  # if the item set is restricted, which map should
+  # this be restricted to: see
+  # https://developer.riotgames.com/docs/game-constants
+  # for all the map constants
+  $scope.selectedMap = 1
+
+  # if a category checkbox is checked, this will be filled
+  # with that value
   $scope.tagFilter = []
+
+
+  # categorical filters will set these values, it's called
+  # orFilter because we need to use the or operation on each
+  # of the elements
   $scope.orFilter = []
 
+  # where we store itemSetBlocks objects
+  #
+  # An ItemSetBlock object looks like this
+  # {
+  #   name: "Starting Items"  // title of the block
+  #   items: [1001, ...]      // 
+  # }
+  $scope.itemSetBlocks = []
 
+  # If All is selected, this is called. Clears all the
+  # categorical and checkbox item shop filters
   $scope.clearFilters = () ->
     $scope.tagFilter = []
     $scope.orFilter = []
     $scope.performFilter()
 
+  # We need to watch for changes to tagFilter model
+  # so the item shop can filter accordingly
   $scope.$watch('tagFilter', () ->
     $scope.performFilter()
     # once tag filter has changed, reset all the
@@ -97,7 +125,7 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
 
   # perform the actual filtering
   $scope.performFilter = () ->
-    itemData = gon.itemData
+    itemData = $scope.itemData
 
     if $scope.tagFilter.length > 0
       itemData = tagFilter(itemData, $scope.tagFilter)
@@ -107,10 +135,17 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
 
     $scope.selectedItems = defaultFilters(itemData)
 
-    $(".item").draggable()
+  $scope.initItemSetBlocks = () ->
+    $scope.itemSetBlocks = [{
+      name: "Starting Items"
+      items: [1001]
+    }]
   
 
+
+
   $scope.performFilter()
+  $scope.initItemSetBlocks()
 )
 
 
@@ -130,6 +165,6 @@ itemSetNamespace.directive('itemDroppable', () ->
       accept: ".item"
       drop: (event, ui) ->
         console.log("Item was Dropped")
-        $(this).append($(ui.draggable).clone())
+        # $(this).append($(ui.draggable).clone())
     )
 )

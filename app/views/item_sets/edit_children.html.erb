@@ -187,11 +187,14 @@
     <!-- ITEM SET BUILDING AREA -->
     <h4>Item Set</h4>
     <!-- END OF ITEM SET BUILDING AREA -->
-    <div item-droppable class="item-set-block well">
-      <input class="form-control" value="Starting Items">
-    </div>
-    <div class="item-set-block well inactive-block">
-      Drag Items Here...
+    <div item-droppable ng-repeat="blockElement in itemSetBlocks" class="item-set-block well">
+      <div class="row">
+        <input class="form-control" value="{{blockElement.name}}">
+      </div>
+      <div item-draggable class="item" ng-repeat="itemId in blockElement.items">
+        <img ng-src="http://static.openitemsets.com/img/item/{{itemId}}.png"></img>
+        <span>{{itemData[itemId].gold.total}}</span>
+      </div><!-- item -->
     </div>
   </div>
   <!-- END OF RIGHT COLUMN -->
