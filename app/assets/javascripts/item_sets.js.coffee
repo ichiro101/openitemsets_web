@@ -135,12 +135,14 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
 
     $scope.selectedItems = defaultFilters(itemData)
 
+  # initialize the item set blocks
+  #
+  # TODO: read the actual dataset from PostgresQL
   $scope.initItemSetBlocks = () ->
     $scope.itemSetBlocks = [{
       name: "Starting Items"
       items: [1001]
     }]
-  
 
 
 
