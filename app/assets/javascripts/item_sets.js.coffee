@@ -186,5 +186,17 @@ itemSetNamespace.directive('itemDroppable', () ->
           scope.$parent.itemSetBlocks[blockIndex].items.push(itemId)
 
           scope.$parent.$apply()
+      out: (event, ui) ->
+        # if the item is dragged out from the draggable item blocks
+        # we must remove the item
+
+        itemIndex = $(ui.draggable).attr("data-index")
+        itemIndex = parseInt(itemIndex)
+
+        blockIndex = $(ui.draggable).attr("data-block-index")
+        blockIndex = parseInt(blockIndex)
+
+        scope.$parent.itemSetBlocks[blockIndex].items.splice(itemIndex, 1)
+        scope.$parent.$apply()
     )
 )
