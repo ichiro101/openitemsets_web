@@ -117,5 +117,19 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
 itemSetNamespace.directive('itemDraggable', () ->
   restrict: 'A'
   link: (scope, elem, attrs) ->
-    elem.draggable()
+    elem.draggable(
+      revert: "invalid"
+      helper: "clone"
+    )
+)
+
+itemSetNamespace.directive('itemDroppable', () ->
+  restrict: 'A'
+  link: (scope, elem, attrs) ->
+    elem.droppable(
+      accept: ".item"
+      drop: (event, ui) ->
+        console.log("Item was Dropped")
+        $(this).append($(ui.draggable).clone())
+    )
 )

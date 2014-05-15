@@ -25,8 +25,11 @@ div.item {
     text-align: center;
     display: block;
   }
+
+  z-index: 1;
 }
 
 div.item-set-block {
-  min-height: 140px
+  min-height: 158px;
+  overflow:auto;
 }
