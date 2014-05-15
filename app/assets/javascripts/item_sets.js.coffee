@@ -29,6 +29,7 @@ orFilter = (itemData, orFilter) ->
 itemSetNamespace.controller("itemSetsController",  ($scope) ->
   $scope.textFilter = ""
   $scope.selectedCategoryFilter = "All"
+  $scope.selectedMap = 1
   $scope.mapOption = 1
   $scope.tagFilter = []
   $scope.orFilter = []
@@ -105,7 +106,16 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
       itemData = orFilter(itemData, $scope.orFilter)
 
     $scope.selectedItems = defaultFilters(itemData)
+
+    $(".item").draggable()
   
 
   $scope.performFilter()
+)
+
+
+itemSetNamespace.directive('itemDraggable', () ->
+  restrict: 'A'
+  link: (scope, elem, attrs) ->
+    elem.draggable()
 )

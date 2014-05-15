@@ -47,6 +47,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootstrap_form'
 gem 'angularjs-rails'
 gem 'underscore-rails'
+gem 'jquery-ui-rails'
 
 # deployment
 gem 'thin'

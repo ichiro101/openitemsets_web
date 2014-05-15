@@ -143,7 +143,7 @@
         <h4>Item List</h4>
         <div id="item-shop">
           <p>Drag these items onto the item set panel, or click on them to add to the item set.</p>
-          <div class="item" ng-repeat="item in selectedItems | filter:query">
+          <div item-draggable class="item" ng-repeat="item in selectedItems | filter:query">
             <img ng-src="http://static.openitemsets.com/img/item/{{item.id}}.png"></img>
             <span>{{item.gold.total}}</span>
           </div><!-- item -->
@@ -154,7 +154,7 @@
   <!-- END OF THE SHOP AREA -->
 
 
-  <!-- ITEM SET BUILDING AREA -->
+  <!-- RIGHT COLUMN -->
   <div class="col-sm-6">
     <h4>Maps</h4>
     <div class="radio">
@@ -171,21 +171,29 @@
     </div><!-- radio -->
     <div id="specific-map-options">
       <label class="radio-inline">
-        <input type="radio" ng-model="specificMap" value="1" name="specificMap" checked> Summoner's Rift
+        <input type="radio" ng-model="selectedMap" value="1" name="selectedMap" checked> Summoner's Rift
       </label>
       <label class="radio-inline">
-        <input type="radio" ng-model="specificMap" value="8" name="specificMap"> The Crystal Scar
+        <input type="radio" ng-model="selectedMap" value="8" name="selectedMap"> The Crystal Scar
       </label>
       <label class="radio-inline">
-        <input type="radio" ng-model="specificMap" value="4" name="specificMap"> The Twisted Treeline
+        <input type="radio" ng-model="selectedMap" value="4" name="selectedMap"> The Twisted Treeline
       </label>
       <label class="radio-inline">
-        <input type="radio" ng-model="specificMap" value="12" name="specificMap"> Howling Abyss
+        <input type="radio" ng-model="selectedMap" value="12" name="selectedMap"> Howling Abyss
       </label>
     </div><!-- specific map options -->
 
-      <h4>Item Set</h4>
+    <!-- ITEM SET BUILDING AREA -->
+    <h4>Item Set</h4>
+    <!-- END OF ITEM SET BUILDING AREA -->
+    <div class="item-set-block well">
+      <input class="form-control" value="Starting Items">
+    </div>
+    <div class="item-set-block well inactive-block">
+      Drag Items Here...
+    </div>
   </div>
-  <!-- END OF ITEM SET BUILDING AREA -->
+  <!-- END OF RIGHT COLUMN -->
 
 </div><!-- row -->
