@@ -134,6 +134,71 @@ describe ItemSetsController do
     end
   end
 
+  describe 'update_json' do
+    json_input = {
+      :blocks => [
+        {
+          :items => [
+            {
+              :count => 1,
+              :id => "2003"
+            },
+            {
+              :count => 1,
+              :id => "2004"
+            }
+          ],
+          :type => "Consumable"
+        },
+        {
+          :items => [
+            {
+              :count => 1,
+              :id => "1056"
+            }
+          ],
+          :type => "Starting Items"
+        }
+      ],
+      :map => "any",
+      :associatedMaps => []
+    }.to_json
+
+    context "with no credentials" do
+      before(:each) do
+        put :update_json, :id => @item_set.id, :json => json_input
+      end
+
+      it_behaves_like "require authentication"
+    end
+
+    context 'with incorrect credentials' do
+      before(:each) do
+        login(@another_user)
+        put :update_json, :id => @item_set.id, :json => json_input
+      end
+
+      it "respond with permission denied" do
+        JSON.parse(response.body)['error'].should_not be_blank
+      end
+    end
+
+    context 'with correct credentials' do
+      before(:each) do
+        login(@item_set.user)
+        put :update_json, :id => @item_set.id, :json => json_input
+      end
+
+      it 'should be a successful request' do
+        JSON.parse(response.body)['status'].should == 'success'
+      end
+
+      it 'should set the json property' do
+        ItemSet.find(@item_set.id).item_set_json.should == json_input
+      end
+    end
+  end
+
   describe "destroy" do
     context "with no credentials" do
       before(:each) do

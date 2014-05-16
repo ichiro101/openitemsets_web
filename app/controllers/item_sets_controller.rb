@@ -1,6 +1,6 @@
 class ItemSetsController < ApplicationController
 
-  before_filter :require_authentication, :only => [:new, :create, :edit, :update, :edit_children, :destroy]
+  before_filter :require_authentication, :only => [:new, :create, :edit, :update, :edit_children, :destroy, :update_json]
 
   def index
     @item_sets = ItemSet.where(:visible_to_public => true).page params[:page]
@@ -76,6 +76,32 @@ class ItemSetsController < ApplicationController
     else
       @page_title = "Editing Item Set"
       render 'edit'
+    end
+  end
+
+  def update_json
+    @item_set = ItemSet.find(params[:id])
+
+    # you should only be able to edit item sets you own
+    if @item_set.user_id != current_user.id
+      render :json => {
+        'status' => 'error',
+        'error' => 'permission denied'
+      }
+      return
+    end
+
+    @item_set.item_set_json = params[:json]
+
+    if @item_set.save
+      render :json => {
+        'status' => 'success'
+      }
+    else
+      render :json => {
+        'status' => 'error',
+        'error' => 'error while saving item_set record'
+      }
     end
   end
 
