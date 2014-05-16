@@ -12,6 +12,12 @@ class ItemSet < ActiveRecord::Base
   MAP_OPTION_ALL_MAPS = 1
   MAP_OPTION_SELECTED_MAP = 0
 
+  # constans for map
+  MAP_SUMMONERS_RIFT = 1
+  MAP_CRYSTAL_SCAR = 8
+  MAP_TWISTED_TREELINE = 10
+  MAP_HOWLING_ABYSS = 12
+
   # This class solely exists to get around
   # rails-bootstrap-forms's dumb limitation in the collections helper
   class Visibility
