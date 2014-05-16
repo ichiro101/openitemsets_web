@@ -112,6 +112,10 @@ describe ItemSetsController do
       it "be redirected to the item_set show action" do
         response.should redirect_to(:controller => "item_sets", :action => "show")
       end
+      
+      it "should update the item_set object" do
+        ItemSet.find(@item_set.id).title.should == "New Title"
+      end
     end
 
     context "with incorrect credentials" do
@@ -122,6 +126,10 @@ describe ItemSetsController do
 
       it "be redirected to the item_set show action" do
         response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
+
+      it "should not update the item_set object" do
+        ItemSet.find(@item_set.id).title.should_not == "New Title"
       end
     end
   end
@@ -144,6 +152,10 @@ describe ItemSetsController do
       it "be redirected to the item_set index action" do
         response.should redirect_to(:controller => "item_sets", :action => "index")
       end
+
+      it "should destroy the object" do
+        ItemSet.count.should == 0
+      end
     end
 
     context "with incorrect credentials" do
@@ -154,6 +166,10 @@ describe ItemSetsController do
 
       it "be redirected to the item_set show action" do
         response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
+
+      it "should not destroy the object" do
+        ItemSet.count.should == 1
       end
     end
   end
