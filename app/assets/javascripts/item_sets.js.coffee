@@ -1,7 +1,11 @@
 itemSetNamespace = angular.module('itemSet', ["checklist-model"])
 
+
 $(document).on('ready page:load', ->
   angular.bootstrap(document.body, ['itemSet'])
+  $('.item').tooltip(
+    html: true
+  )
 )
 
 defaultFilters = (itemData) ->
@@ -85,7 +89,8 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
   , true)
 
   $scope.$watch('itemSetBlocks', () ->
-    console.log('this is called')
+    #TODO: implement this
+    console.log('TODO: implement ajax uplink for itemSet updates')
   , true)
 
   # categorical filters are filtered
@@ -167,15 +172,42 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
 itemSetNamespace.directive('itemDraggable', () ->
   restrict: 'A'
   link: (scope, elem, attrs) ->
+    # 
+    # tooltips
+    
+    # we need to get the information we want from the tool tip from the
+    # item-id
+    itemId = attrs.itemId
+    itemId = parseInt(itemId)
+
+    # set the tooltip
+    elem.attr('title', setItemTooltip(scope.$parent.itemData, itemId))
+
     elem.draggable(
       revert: "invalid"
       helper: "clone"
     )
 )
 
+setItemTooltip = (itemData, itemId) ->
+  tooltipString = "#{itemData[itemId].name}<br>
+   #{itemData[itemId].description}"
+  tooltipString
+
 itemSetNamespace.directive('setItemDraggable', () ->
   restrict: 'A'
   link: (scope, elem, attrs) ->
+    # 
+    # tooltips
+    
+    # we need to get the information we want from the tool tip from the
+    # item-id
+    itemId = attrs.itemId
+    itemId = parseInt(itemId)
+
+    # set the tooltip
+    elem.attr('title', setItemTooltip(scope.$parent.itemData, itemId))
+
     elem.draggable(
       revert: true
     )
