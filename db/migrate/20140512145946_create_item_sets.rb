@@ -15,6 +15,9 @@ class CreateItemSets < ActiveRecord::Migration
 
       t.boolean :visible_to_public, :null => false, :default => false
 
+      # data
+      t.integer :map_option
+      t.integer :map
       t.text :item_set_json
 
       t.timestamps

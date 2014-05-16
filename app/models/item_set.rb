@@ -8,6 +8,10 @@ class ItemSet < ActiveRecord::Base
     "Jungle"
   ]
 
+  # constants for map_option
+  MAP_OPTION_ALL_MAPS = 1
+  MAP_OPTION_SELECTED_MAP = 0
+
   # This class solely exists to get around
   # rails-bootstrap-forms's dumb limitation in the collections helper
   class Visibility
@@ -34,6 +38,8 @@ class ItemSet < ActiveRecord::Base
   validates :champion, :inclusion => {:in => Champion.names}, :presence => true
   validates :role, :inclusion => {:in => ROLES}, :presence => true
 
+  before_save :parse_json
+
   def champion_image_url
     "http://static.openitemsets.com/img/champion/#{self.champion}.png"
   end
@@ -44,6 +50,27 @@ class ItemSet < ActiveRecord::Base
     else
       self.title
     end
+  end
+
+  private
+
+  def parse_json
+    if !self.item_set_json.blank?
+      begin
+        item_set_object = JSON.parse(self.item_set_json)
+
+        if item_set_object['associatedMaps'].length == 0
+          self.map_option = MAP_OPTION_ALL_MAPS
+          self.map = nil
+        else
+          self.map_option = MAP_OPTION_SELECTED_MAP
+          self.map = item_set_object['associatedMaps'].first
+        end
+      rescue
+        self.errors.add(:base, 'errors occured while trying to parse JSON')
+      end
+    end
+
   end
 
 end

@@ -30,6 +30,11 @@ orFilter = (itemData, orFilter) ->
     result
   )
 
+
+buildJSON = (blockData, mapOption, selectedMap) ->
+  console.log(blockData, mapOption, selectedMap)
+
+
 itemSetNamespace.controller("itemSetsController",  ($scope) ->
   # itemData which was retrieved from redis
   $scope.itemData = gon.itemData

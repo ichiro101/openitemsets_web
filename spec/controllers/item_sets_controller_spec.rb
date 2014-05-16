@@ -164,6 +164,35 @@ describe ItemSetsController do
       :associatedMaps => []
     }.to_json
 
+    json_input_2 = {
+      :blocks => [
+        {
+          :items => [
+            {
+              :count => 1,
+              :id => "2003"
+            },
+            {
+              :count => 1,
+              :id => "2004"
+            }
+          ],
+          :type => "Consumable"
+        },
+        {
+          :items => [
+            {
+              :count => 1,
+              :id => "1056"
+            }
+          ],
+          :type => "Starting Items"
+        }
+      ],
+      :map => "any",
+      :associatedMaps => [1]
+    }.to_json
+
     context "with no credentials" do
       before(:each) do
         put :update_json, :id => @item_set.id, :json => json_input
@@ -183,7 +212,7 @@ describe ItemSetsController do
       end
     end
 
-    context 'with correct credentials' do
+    context 'with correct credentials, using input 1' do
       before(:each) do
         login(@item_set.user)
         put :update_json, :id => @item_set.id, :json => json_input
@@ -195,6 +224,42 @@ describe ItemSetsController do
 
       it 'should set the json property' do
         ItemSet.find(@item_set.id).item_set_json.should == json_input
+      end
+
+      it "should set map related properties" do
+        item_set = ItemSet.find(@item_set.id)
+        item_set.map_option.should == 1
+      end
+
+      it 'should have no errors' do
+        item_set = ItemSet.find(@item_set.id)
+        item_set.errors.should be_blank
+      end
+    end
+
+    context 'with correct credentials, using input 2' do
+      before(:each) do
+        login(@item_set.user)
+        put :update_json, :id => @item_set.id, :json => json_input_2
+      end
+
+      it 'should be a successful request' do
+        JSON.parse(response.body)['status'].should == 'success'
+      end
+
+      it 'should set the json property' do
+        ItemSet.find(@item_set.id).item_set_json.should == json_input_2
+      end
+
+      it "should set map related properties" do
+        item_set = ItemSet.find(@item_set.id)
+        item_set.map_option.should == 0
+        item_set.map.should == 1
+      end
+
+      it 'should have no errors' do
+        item_set = ItemSet.find(@item_set.id)
+        item_set.errors.should be_blank
       end
     end
   end

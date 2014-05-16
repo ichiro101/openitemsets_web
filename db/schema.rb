@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20140512145946) do
     t.text     "description"
     t.integer  "user_id",           default: 0,                  null: false
     t.boolean  "visible_to_public", default: false,              null: false
+    t.integer  "map_option"
+    t.integer  "map"
     t.text     "item_set_json"
     t.datetime "created_at"
     t.datetime "updated_at"
