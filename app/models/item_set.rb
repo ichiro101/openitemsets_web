@@ -28,7 +28,6 @@ class ItemSet < ActiveRecord::Base
   end
 
   # active record relations of ItemSet
-  has_many :item_set_blocks, :dependent => :delete_all
   belongs_to :user
 
   # rails validations

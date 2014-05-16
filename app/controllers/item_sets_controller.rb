@@ -1,6 +1,6 @@
 class ItemSetsController < ApplicationController
 
-  before_filter :require_authentication, :only => [:new, :create, :edit, :update]
+  before_filter :require_authentication, :only => [:new, :create, :edit, :update, :edit_children, :destroy]
 
   def index
     @item_sets = ItemSet.where(:visible_to_public => true).page params[:page]
@@ -44,6 +44,13 @@ class ItemSetsController < ApplicationController
   def edit_children
     @item_set = ItemSet.find(params[:id])
 
+    # you should only be able to edit item sets you own
+    if @item_set.user_id != current_user.id
+      flash[:danger] = "Unauthorized action"
+      redirect_to item_set_path(@item_set)
+      return
+    end
+
     gon.push({
       :itemData => Item.item_hash["data"]
     })
@@ -56,6 +63,7 @@ class ItemSetsController < ApplicationController
     if @item_set.user_id != current_user.id
       flash[:danger] = "Unauthorized action"
       redirect_to item_set_path(@item_set)
+      return
     end
 
     @item_set.title = params[:item_set][:title]
@@ -64,7 +72,7 @@ class ItemSetsController < ApplicationController
 
     if @item_set.save
       flash[:success] = "Successfully updated item set meta data"
-      redirect_to edit_item_set_path(@item_set)
+      redirect_to item_set_path(@item_set)
     else
       @page_title = "Editing Item Set"
       render 'edit'
@@ -84,12 +92,13 @@ class ItemSetsController < ApplicationController
     if @item_set.user_id != current_user.id
       flash[:danger] = "Unauthorized action"
       redirect_to item_set_path(@item_set)
+      return
     end
 
     @item_set.destroy
 
     flash[:success] = "This item set has been deleted"
-    redirect_to items_set_path
+    redirect_to item_sets_path
   end
 
 end

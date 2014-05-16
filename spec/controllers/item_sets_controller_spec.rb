@@ -31,14 +31,132 @@ describe ItemSetsController do
   end
 
   describe "edit" do
-    before(:each) do
-      login(@item_set_user)
-      get :edit, :id => @item_set.id
+    context "with no credentials" do
+      before(:each) do
+        get :edit, :id => @item_set.id
+      end
+
+      it_behaves_like "require authentication"
     end
 
-    it "should render the template with correct user" do
-      response.should render_template(:edit)
+    context "with proper credentials" do
+      before(:each) do
+        login(@item_set_user)
+        get :edit, :id => @item_set.id
+      end
+
+      it "should render the template with correct user" do
+        response.should render_template(:edit)
+      end
+    end
+
+    context "with incorrect credentials" do
+      before(:each) do
+        login(@another_user)
+        get :edit, :id => @item_set.id
+      end
+
+      it "be redirected to the item_set show page" do
+        response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
     end
   end
+
+  describe "edit_children" do
+    context "with no credentials" do
+      before(:each) do
+        get :edit_children, :id => @item_set.id
+      end
+
+      it_behaves_like "require authentication"
+    end
+
+    context "with proper credentials" do
+      before(:each) do
+        login(@item_set_user)
+        get :edit_children, :id => @item_set.id
+      end
+
+      it "should render the template with correct user" do
+        response.should render_template(:edit_children)
+      end
+    end
+
+    context "with incorrect credentials" do
+      before(:each) do
+        login(@another_user)
+        get :edit_children, :id => @item_set.id
+      end
+
+      it "be redirected to the item_set show page" do
+        response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
+    end
+  end
+
+  describe "update" do
+    context "with no credentials" do
+      before(:each) do
+        put :update, :id => @item_set.id
+      end
+
+      it_behaves_like "require authentication"
+    end
+
+    context "with proper credentials" do
+      before(:each) do
+        login(@item_set_user)
+        put :update, :id => @item_set.id, :item_set => {:title => "New Title", :role => "Mid", :visible_to_public => true}
+      end
+
+      it "be redirected to the item_set show action" do
+        response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
+    end
+
+    context "with incorrect credentials" do
+      before(:each) do
+        login(@another_user)
+        put :update, :id => @item_set.id, :item_set => {:title => "New Title", :role => "Mid", :visible_to_public => true}
+      end
+
+      it "be redirected to the item_set show action" do
+        response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
+    end
+  end
+
+  describe "destroy" do
+    context "with no credentials" do
+      before(:each) do
+        delete :destroy, :id => @item_set.id
+      end
+
+      it_behaves_like "require authentication"
+    end
+
+    context "with proper credentials" do
+      before(:each) do
+        login(@item_set_user)
+        delete :destroy, :id => @item_set.id
+      end
+
+      it "be redirected to the item_set index action" do
+        response.should redirect_to(:controller => "item_sets", :action => "index")
+      end
+    end
+
+    context "with incorrect credentials" do
+      before(:each) do
+        login(@another_user)
+        delete :destroy, :id => @item_set.id
+      end
+
+      it "be redirected to the item_set show action" do
+        response.should redirect_to(:controller => "item_sets", :action => "show")
+      end
+    end
+  end
+
 
 end
