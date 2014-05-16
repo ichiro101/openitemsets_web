@@ -3,9 +3,6 @@ itemSetNamespace = angular.module('itemSet', ["checklist-model"])
 
 $(document).on('ready page:load', ->
   angular.bootstrap(document.body, ['itemSet'])
-  $('.item').tooltip(
-    html: true
-  )
 )
 
 defaultFilters = (itemData) ->
@@ -183,6 +180,11 @@ itemSetNamespace.directive('itemDraggable', () ->
     # set the tooltip
     elem.attr('title', setItemTooltip(scope.$parent.itemData, itemId))
 
+    # once the attribute is known, now activate the tooltip
+    $(elem).tooltip(
+      html: true
+    )
+
     elem.draggable(
       revert: "invalid"
       helper: "clone"
@@ -207,6 +209,11 @@ itemSetNamespace.directive('setItemDraggable', () ->
 
     # set the tooltip
     elem.attr('title', setItemTooltip(scope.$parent.itemData, itemId))
+
+    # once the attribute is known, now activate the tooltip
+    $(elem).tooltip(
+      html: true
+    )
 
     elem.draggable(
       revert: true
