@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20140512145946) do
     t.string   "champion",          default: "Ahri",             null: false
     t.string   "role",                                           null: false
     t.text     "description"
-    t.text     "associated_maps",   default: "[]"
     t.integer  "user_id",           default: 0,                  null: false
     t.boolean  "visible_to_public", default: false,              null: false
     t.text     "item_set_json"

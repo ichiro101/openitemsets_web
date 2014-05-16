@@ -79,6 +79,10 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
     $scope.orFilter = []
   , true)
 
+  $scope.$watch('itemSetBlocks', () ->
+    console.log('this is called')
+  , true)
+
   # categorical filters are filtered
   # by an OR operation
   $scope.addCategoryFilter = (filter) ->
