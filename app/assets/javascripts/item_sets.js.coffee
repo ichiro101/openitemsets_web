@@ -74,6 +74,7 @@ buildJSON = (blockData, mapOption, selectedMap) ->
 
     exportObj.blocks.push(blockObj)
 
+  exportObj.map = 'any'
   exportObj
 
 itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
