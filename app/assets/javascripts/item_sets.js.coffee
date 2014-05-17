@@ -81,6 +81,34 @@ checkRequiredChampion = (itemData) ->
   )
 
 
+checkRequiredMap = (itemData, mapOption, selectedMap) ->
+  _.filter(itemData, (itemObject) ->
+    if itemObject.maps?
+      # check if we have a map requirement on the item set
+      if mapOption == '0'
+        selectedMap = parseInt(selectedMap)
+        if itemObject.maps[selectedMap] == undefined
+          # no restriction on this map because it doesn't exist
+          return true
+        else if itemObject.maps[selectedMap] == false
+          # there is a restriction on this map
+          return false
+        else if itemObject.maps[selectedMap] == true
+          # there isn't any restriction on this map as well
+          return true
+        # if we're here it means we're in an undefined state
+        # it's not supposed to happen
+        throw new Error('Not supposed to end here')
+      else if mapOption == '1'
+        # we don't have a map requirement here
+        return true
+      else
+        throw new Error('Invalid mapOption')
+    else
+      # no map requirement
+      true
+  )
+
 
 buildJSON = (blockData, mapOption, selectedMap) ->
   exportObj = {}
@@ -114,7 +142,7 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
 
   # value of 1 means this item set is universal, value of
   # 0 means the item set is restricted
-  $scope.mapOption = 1
+  $scope.mapOption = '1'
 
   # if the item set is restricted, which map should
   # this be restricted to: see
@@ -171,6 +199,15 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     # categorical filters as well
     $scope.orFilter = []
   , true)
+
+  $scope.$watch('mapOption', () ->
+    $scope.performFilter()
+  , true)
+
+  $scope.$watch('selectedMap', () ->
+    $scope.performFilter()
+  , true)
+
 
   $scope.$watch('itemSetBlocks', () ->
     oldString = JSON.stringify($scope.oldItemSetBlocks)
@@ -262,6 +299,8 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     itemData = $scope.itemData
 
     itemData = checkRequiredChampion(itemData)
+
+    itemData = checkRequiredMap(itemData, $scope.mapOption, $scope.selectedMap)
 
     if $scope.tagFilter.length > 0
       itemData = tagFilter(itemData, $scope.tagFilter)
