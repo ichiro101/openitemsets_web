@@ -356,6 +356,8 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
   $scope.initItemSetBlocks()
 )
 
+itemSetNamespace.controller("itemSetsController",  ['$scope', '$http', itemSetsController])
+
 
 itemSetNamespace.directive('itemDraggable', () ->
   restrict: 'A'
