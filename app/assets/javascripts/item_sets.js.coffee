@@ -110,6 +110,11 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
   # }
   $scope.itemSetBlocks = []
 
+  # where we store the item set blocks that is loaded
+  # when we load the page, or the item set blocks that
+  # was JUST saved
+  $scope.oldItemSetBlocks = []
+
   # If All is selected, this is called. Clears all the
   # categorical and checkbox item shop filters
   $scope.clearFilters = () ->
@@ -117,9 +122,9 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     $scope.orFilter = []
     $scope.performFilter()
 
-  # returns the javascript object which represents the
-  $scope.convertToExportFormat = () ->
-
+  # flag... if there's any changes to the item set, this will
+  # be set to true
+  $scope.hasChanged = false
 
   # We need to watch for changes to tagFilter model
   # so the item shop can filter accordingly
@@ -128,6 +133,11 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     # once tag filter has changed, reset all the
     # categorical filters as well
     $scope.orFilter = []
+  , true)
+
+  $scope.$watch('itemSetBlocks', () ->
+    if _.isEqual($scope.itemSetblocks, $scope.oldItemSetBlocks)
+      $scope.hasChanged = true
   , true)
 
   # sends an ajax request to the rails web server to
@@ -141,23 +151,13 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
       json: angular.toJson(obj)
 
     # TODO: error handling
-    $http.put("/item_sets/#{gon.itemSetId}/update_json", data)
-
-
-  $scope.$watch('itemSetBlocks', () ->
-    $scope.updateItemSet()
-  , true)
-
-  $scope.$watch('mapOption', () ->
-    $scope.updateItemSet()
-  , true)
-
-  $scope.$watch('selectedMap', () ->
-    # only update if mapOption is set to 0, which means
-    # selectedMap value is actually useful
-    if $scope.mapOption == "0"
-      $scope.updateItemSet()
-  , true)
+    $http.put("/item_sets/#{gon.itemSetId}/update_json", data).success(
+      (data) ->
+        if data.status == 'success'
+          $scope.oldItemSetBlocks = $scope.itemSetBlocks
+        else
+          console.log('error occured while trying to update')
+    )
 
   # categorical filters are filtered
   # by an OR operation
@@ -221,6 +221,16 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
 
     $scope.selectedItems = defaultFilters(itemData)
 
+  # when addBlock gets called...
+  $scope.addBlock = () ->
+    block =
+      name: "Block #{$scope.itemSetBlocks.length + 1}"
+      items: []
+    $scope.itemSetBlocks.push(block)
+
+  $scope.removeBlock = (index) ->
+    $scope.itemSetBlocks.splice(index, 1)
+
   # initialize the item set blocks
   $scope.initItemSetBlocks = () ->
     if gon.setData?
@@ -249,6 +259,9 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
         items: [1001]
       ]
 
+    # initialize oldItemSetBlocks, so we can compare to see
+    # if change has occured
+    $scope.oldItemSetBlocks = $scope.itemSetBlocks
 
   $scope.performFilter()
   $scope.initItemSetBlocks()

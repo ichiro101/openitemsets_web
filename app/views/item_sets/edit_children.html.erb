@@ -1,6 +1,12 @@
 <div ng-controller="itemSetsController" class="row">
-  <h1>Edit Item Set for <%= @item_set.champion %></h1>
-
+  <h1>Edit Item Set for <%= @item_set.champion %>
+    <button ng-click="updateItemSet()" type="button" class="btn btn-default">Apply Changes<span ng-show="hasChanged">*</span></button>
+    <% if !@item_set.visible_to_public %>
+      <button save-and-publish type="button" class="btn btn-primary">Save and Publish</button>
+    <% end %>
+    <button save-and-close type="button" class="btn btn-primary">Save and Close</button>
+    <%= link_to("Go Back Without Saving", item_set_path(@item_set), :class => "btn btn-warning") %>
+  </h1>
   <!-- SHOP AREA -->
   <div class="col-md-6">
     <input class="form-control" ng-model="query" placeholder="Filter">
@@ -191,18 +197,19 @@
     <div item-droppable ng-repeat="blockElement in itemSetBlocks" class="item-set-block well" data-index="{{$index}}">
       <div class="row">
         <div class="col-xs-11">
-          <input class="form-control" value="{{blockElement.name}}">
+          <input class="form-control" ng-model="blockElement.name">
         </div>
         <div class="col-xs-1">
-          <button class="close">&times;</button>
+          <button class="close" ng-click="removeBlock($index)">&times;</button>
         </div>
       </div>
       <div data-toggle="tooltip" data-placement="auto" set-item-draggable class="item" ng-repeat="itemId in blockElement.items track by $index" data-item-id="{{itemId}}" data-block-index="{{$parent.$index}}" data-index="{{$index}}">
         <img ng-src="http://static.openitemsets.com/img/item/{{itemId}}.png"></img>
         <span>{{itemData[itemId].gold.total}}</span>
       </div><!-- item -->
-    </div>
-  </div>
+    </div><!-- item-set-block -->
+    <button ng-click="addBlock()" type="button" class="btn btn-info">New Block</button>
+  </div><!-- col-sm-6 -->
   <!-- END OF RIGHT COLUMN -->
 
 </div><!-- row -->
