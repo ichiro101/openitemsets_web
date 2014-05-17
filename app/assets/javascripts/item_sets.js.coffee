@@ -136,7 +136,7 @@ buildJSON = (blockData, mapOption, selectedMap) ->
   exportObj.map = 'any'
   exportObj
 
-itemSetCtrl = itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
+itemSetCtrl = itemSetNamespace.controller("itemSetsController", ['$scope', '$http', ($scope, $http) ->
   # itemData which was retrieved from redis
   $scope.itemData = gon.itemData
 
@@ -354,9 +354,8 @@ itemSetCtrl = itemSetNamespace.controller("itemSetsController",  ($scope, $http)
 
   $scope.performFilter()
   $scope.initItemSetBlocks()
+  ]
 )
-
-itemSetCtrl.$inject = ['$scope', '$http']
 
 itemSetNamespace.directive('itemDraggable', () ->
   restrict: 'A'
