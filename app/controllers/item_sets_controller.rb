@@ -52,6 +52,7 @@ class ItemSetsController < ApplicationController
     end
 
     gon.push({
+      :champion => @item_set.champion,
       :itemData => Item.item_hash["data"]
     })
   end

@@ -5,6 +5,8 @@ $(document).on('ready page:load', ->
   angular.bootstrap(document.body, ['itemSet'])
 )
 
+# the default item shop filter, filters out all the items
+# we cannot buy
 defaultFilters = (itemData) ->
   purchasableItems = _.filter(itemData, (itemObject) ->
     itemObject.gold.purchasable
@@ -14,11 +16,13 @@ defaultFilters = (itemData) ->
     itemObject.gold.total
   )
 
+# perform checkbox filtering
 tagFilter = (itemData, filter) ->
   _.filter(itemData, (itemObject) ->
     _.intersection(itemObject.tags, filter).length == filter.length
   )
 
+# perform categorical filtering
 orFilter = (itemData, orFilter) ->
   _.filter(itemData, (itemObject) ->
     result = false
@@ -30,6 +34,21 @@ orFilter = (itemData, orFilter) ->
         return result
     result
   )
+
+# strip all the items that require a certain champion, of which
+# we are not...
+checkRequiredChampion = (itemData) ->
+  _.filter(itemData, (itemObject) ->
+    if itemObject.requiredChampion != undefined
+      # if we are not the requiredChampion attribute
+      # this needs to return false
+      gon.champion == itemObject.requiredChampion
+    else
+      # if there is no requiredChampion attribute, then
+      # return true
+      true
+  )
+
 
 
 buildJSON = (blockData, mapOption, selectedMap) ->
@@ -142,6 +161,8 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
   $scope.performFilter = () ->
     itemData = $scope.itemData
 
+    itemData = checkRequiredChampion(itemData)
+
     if $scope.tagFilter.length > 0
       itemData = tagFilter(itemData, $scope.tagFilter)
 
@@ -192,7 +213,7 @@ itemSetNamespace.directive('itemDraggable', () ->
 )
 
 setItemTooltip = (itemData, itemId) ->
-  tooltipString = "#{itemData[itemId].name}<br>
+  tooltipString = "#{itemData[itemId].name}<br><br>
    #{itemData[itemId].description}"
   tooltipString
 
