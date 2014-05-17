@@ -53,7 +53,7 @@ checkRequiredChampion = (itemData) ->
 
 buildJSON = (blockData, mapOption, selectedMap) ->
   exportObj = {}
-  if !mapOption
+  if mapOption == '0'
     # if map option is zero, then we have to have a selected map
     exportObj.associatedMaps = [selectedMap]
   else
@@ -129,7 +129,10 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     $scope.orFilter = []
   , true)
 
-  $scope.$watch('itemSetBlocks', () ->
+  # sends an ajax request to the rails web server to
+  # sync the current item set to the ones stored
+  # on the rails server
+  $scope.updateItemSet = () ->
     obj = buildJSON($scope.itemSetBlocks, $scope.mapOption, $scope.selectedMap)
     console.log(obj)
     data =
@@ -138,6 +141,21 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
 
     # TODO: error handling
     $http.put("/item_sets/#{gon.itemSetId}/update_json", data)
+
+
+  $scope.$watch('itemSetBlocks', () ->
+    $scope.updateItemSet()
+  , true)
+
+  $scope.$watch('mapOption', () ->
+    $scope.updateItemSet()
+  , true)
+
+  $scope.$watch('selectedMap', () ->
+    # only update if mapOption is set to 0, which means
+    # selectedMap value is actually useful
+    if $scope.mapOption == "0"
+      $scope.updateItemSet()
   , true)
 
   # categorical filters are filtered
@@ -209,12 +227,12 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
         # if there is no associated maps, then we can use
         # this item set for ANY maps, hence the mapOption is
         # set to 1
-        $scope.mapOption = 1
+        $scope.mapOption = '1'
       else
         # if there is any associated maps, it means
         # we can only choose a specific map, and not any map
         # hence mapOption is set to 0
-        $scope.mapOption = 0
+        $scope.mapOption = '0'
         $scope.selectedMap = gon.setData.associatedMaps[0]
 
       for itemBlock in gon.setData.blocks
