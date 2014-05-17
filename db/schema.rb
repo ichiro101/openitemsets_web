@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140512145946) do
     t.string   "email_confirmation_token"
     t.boolean  "email_confirmed",          default: false, null: false
     t.string   "hashed_password",                          null: false
+    t.string   "password_reset_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
