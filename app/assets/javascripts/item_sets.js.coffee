@@ -170,14 +170,9 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     oldString = JSON.stringify($scope.oldItemSetBlocks)
     currentString = JSON.stringify($scope.itemSetBlocks)
 
-    console.log(JSON.stringify($scope.itemSetBlocks))
-    console.log(JSON.stringify($scope.oldItemSetBlocks))
-
     if oldString != currentString
-      console.log('is not equal')
       $scope.hasChanged = true
     else
-      console.log('is equal')
       $scope.hasChanged = false
 
   , true)
@@ -189,7 +184,6 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
   # this is called whenever apply changes is clicked
   $scope.updateItemSet = () ->
     obj = buildJSON($scope.itemSetBlocks, $scope.mapOption, $scope.selectedMap)
-    console.log(obj)
     data =
       authenticity_token: gon.authToken
       json: angular.toJson(obj)
@@ -201,6 +195,7 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
           $scope.oldItemSetBlocks = deepClone($scope.itemSetBlocks)
           $scope.hasChanged = false
         else
+          console.log('TODO: HANDLE ERRORS')
           console.log('error occured while trying to update')
     )
 
