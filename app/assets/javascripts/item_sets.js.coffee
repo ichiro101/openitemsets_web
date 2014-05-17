@@ -1,5 +1,36 @@
 itemSetNamespace = angular.module('itemSet', ["checklist-model"])
 
+# from
+# http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
+deepClone = (obj) ->
+  
+  # Handle the 3 simple types, and null or undefined
+  return obj  if null is obj or "object" isnt typeof obj
+  
+  # Handle Date
+  if obj instanceof Date
+    copy = new Date()
+    copy.setTime obj.getTime()
+    return copy
+  
+  # Handle Array
+  if obj instanceof Array
+    copy = []
+    i = 0
+    len = obj.length
+
+    while i < len
+      copy[i] = deepClone(obj[i])
+      i++
+    return copy
+  
+  # Handle Object
+  if obj instanceof Object
+    copy = {}
+    for attr of obj
+      copy[attr] = deepClone(obj[attr])  if obj.hasOwnProperty(attr)
+    return copy
+  throw new Error("Unable to copy obj! Its type isn't supported.")
 
 $(document).on('ready page:load', ->
   angular.bootstrap(document.body, ['itemSet'])
@@ -39,7 +70,7 @@ orFilter = (itemData, orFilter) ->
 # we are not...
 checkRequiredChampion = (itemData) ->
   _.filter(itemData, (itemObject) ->
-    if itemObject.requiredChampion != undefined
+    if itemObject.requiredChampion?
       # if we are not the requiredChampion attribute
       # this needs to return false
       gon.champion == itemObject.requiredChampion
@@ -136,13 +167,26 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
   , true)
 
   $scope.$watch('itemSetBlocks', () ->
-    if _.isEqual($scope.itemSetblocks, $scope.oldItemSetBlocks)
+    oldString = JSON.stringify($scope.oldItemSetBlocks)
+    currentString = JSON.stringify($scope.itemSetBlocks)
+
+    console.log(JSON.stringify($scope.itemSetBlocks))
+    console.log(JSON.stringify($scope.oldItemSetBlocks))
+
+    if oldString != currentString
+      console.log('is not equal')
       $scope.hasChanged = true
+    else
+      console.log('is equal')
+      $scope.hasChanged = false
+
   , true)
 
   # sends an ajax request to the rails web server to
   # sync the current item set to the ones stored
   # on the rails server
+  #
+  # this is called whenever apply changes is clicked
   $scope.updateItemSet = () ->
     obj = buildJSON($scope.itemSetBlocks, $scope.mapOption, $scope.selectedMap)
     console.log(obj)
@@ -154,7 +198,8 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
     $http.put("/item_sets/#{gon.itemSetId}/update_json", data).success(
       (data) ->
         if data.status == 'success'
-          $scope.oldItemSetBlocks = $scope.itemSetBlocks
+          $scope.oldItemSetBlocks = deepClone($scope.itemSetBlocks)
+          $scope.hasChanged = false
         else
           console.log('error occured while trying to update')
     )
@@ -261,7 +306,7 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
 
     # initialize oldItemSetBlocks, so we can compare to see
     # if change has occured
-    $scope.oldItemSetBlocks = $scope.itemSetBlocks
+    $scope.oldItemSetBlocks = deepClone($scope.itemSetBlocks)
 
   $scope.performFilter()
   $scope.initItemSetBlocks()
