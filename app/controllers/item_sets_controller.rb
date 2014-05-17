@@ -51,8 +51,16 @@ class ItemSetsController < ApplicationController
       return
     end
 
+    if @item_set.item_set_json.blank?
+      set_data = nil 
+    else
+      set_data = JSON.parse(@item_set.item_set_json)
+    end
     gon.push({
+      :authToken => form_authenticity_token,
+      :itemSetId => @item_set.id,
       :champion => @item_set.champion,
+      :setData => set_data,
       :itemData => Item.item_hash["data"]
     })
   end
@@ -96,7 +104,8 @@ class ItemSetsController < ApplicationController
 
     if @item_set.save
       render :json => {
-        'status' => 'success'
+        'status' => 'success',
+        'input_parameter' => params[:json]
       }
     else
       render :json => {

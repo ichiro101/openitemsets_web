@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email_confirmation_token
       t.boolean :email_confirmed, :null => false, :default => false
       t.string :hashed_password, :null => false
+      t.string :password_reset_token
 
       t.timestamps
     end

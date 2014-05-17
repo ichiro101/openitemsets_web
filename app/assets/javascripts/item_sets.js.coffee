@@ -52,10 +52,31 @@ checkRequiredChampion = (itemData) ->
 
 
 buildJSON = (blockData, mapOption, selectedMap) ->
-  console.log(blockData, mapOption, selectedMap)
+  exportObj = {}
+  if !mapOption
+    # if map option is zero, then we have to have a selected map
+    exportObj.associatedMaps = [selectedMap]
+  else
+    # if map option is set to 1, it means we have to clear associatedMaps array
+    exportObj.associatedMaps = []
 
+  exportObj.blocks = []
+  for itemBlock in blockData
+    blockObj =
+      type: itemBlock.name
+      items: []
 
-itemSetNamespace.controller("itemSetsController",  ($scope) ->
+    for item in itemBlock.items
+      itemObject =
+        count: 1
+        id: item
+      blockObj.items.push(itemObject)
+
+    exportObj.blocks.push(blockObj)
+
+  exportObj
+
+itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
   # itemData which was retrieved from redis
   $scope.itemData = gon.itemData
 
@@ -95,6 +116,10 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
     $scope.orFilter = []
     $scope.performFilter()
 
+  # returns the javascript object which represents the
+  $scope.convertToExportFormat = () ->
+
+
   # We need to watch for changes to tagFilter model
   # so the item shop can filter accordingly
   $scope.$watch('tagFilter', () ->
@@ -105,8 +130,14 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
   , true)
 
   $scope.$watch('itemSetBlocks', () ->
-    #TODO: implement this
-    console.log('TODO: implement ajax uplink for itemSet updates')
+    obj = buildJSON($scope.itemSetBlocks, $scope.mapOption, $scope.selectedMap)
+    console.log(obj)
+    data =
+      authenticity_token: gon.authToken
+      json: angular.toJson(obj)
+
+    # TODO: error handling
+    $http.put("/item_sets/#{gon.itemSetId}/update_json", data)
   , true)
 
   # categorical filters are filtered
@@ -172,14 +203,32 @@ itemSetNamespace.controller("itemSetsController",  ($scope) ->
     $scope.selectedItems = defaultFilters(itemData)
 
   # initialize the item set blocks
-  #
-  # TODO: read the actual dataset from PostgresQL
   $scope.initItemSetBlocks = () ->
-    $scope.itemSetBlocks = [{
-      name: "Starting Items"
-      items: [1001]
-    }]
+    if gon.setData?
+      if gon.setData.associatedMaps.length == 0
+        # if there is no associated maps, then we can use
+        # this item set for ANY maps, hence the mapOption is
+        # set to 1
+        $scope.mapOption = 1
+      else
+        # if there is any associated maps, it means
+        # we can only choose a specific map, and not any map
+        # hence mapOption is set to 0
+        $scope.mapOption = 0
+        $scope.selectedMap = gon.setData.associatedMaps[0]
 
+      for itemBlock in gon.setData.blocks
+        block =
+          name: itemBlock.type
+          items: []
+        for item in itemBlock.items
+          block.items.push(parseInt(item.id))
+        $scope.itemSetBlocks.push(block)
+    else
+      $scope.itemSetBlocks = [
+        name: "Starting Items"
+        items: [1001]
+      ]
 
 
   $scope.performFilter()
