@@ -11,4 +11,4 @@ Please refer to [OpenItemSets Vagrant](https://github.com/ichiro101/OpenItemSets
 
 # License
 
-Licensed under GNU General Public License Version 3. See LICENSE.
+Licensed under GNU Affero General Public License Version 3. See LICENSE.
