@@ -58,6 +58,33 @@ class ItemSet < ActiveRecord::Base
     end
   end
 
+  def to_game_json(pretty = false)
+    item_set_object = JSON.parse(self.item_set_json)
+
+    if self.map_option == MAP_OPTION_ALL_MAPS
+      isGlobalForMaps = true
+    else
+      isGlobalForMaps = false
+    end
+
+    item_set_object = item_set_object.merge({
+      :mode => 'any',
+      :title => self.display_name,
+      :sortrank => 1,
+      :isGlobalForMaps => isGlobalForMaps,
+      :isGlobalForChampions => false,
+      :champion => self.champion,
+      :type => "custom",
+      :priority => false
+    })
+
+    if pretty
+      JSON.pretty_generate(item_set_object)
+    else
+      item_set_object.to_json
+    end
+  end
+
   private
 
   def parse_json

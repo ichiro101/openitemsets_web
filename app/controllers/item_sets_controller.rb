@@ -119,6 +119,12 @@ class ItemSetsController < ApplicationController
   def show
     @item_set = ItemSet.find(params[:id])
 
+    if !@item_set.item_set_json.blank?
+      @item_set_data = JSON.parse(@item_set.item_set_json)
+    else
+      @item_set_data = nil
+    end
+
     @page_title = "View Item Set: #{@item_set.display_name}"
   end
 

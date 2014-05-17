@@ -23,4 +23,119 @@ describe ItemSet do
     @item_set.save.should be_blank
   end
 
+  describe 'json test' do
+    before :each do
+      @json_input_1 = {
+        :blocks => [
+          {
+            :items => [
+              {
+                :count => 1,
+                :id => "2003"
+              },
+              {
+                :count => 1,
+                :id => "2004"
+              }
+            ],
+            :type => "Consumable"
+          },
+          {
+            :items => [
+              {
+                :count => 1,
+                :id => "1056"
+              }
+            ],
+            :type => "Starting Items"
+          }
+        ],
+        :map => "any",
+        :associatedMaps => []
+      }.to_json
+
+      @json_input_2 = {
+        :blocks => [
+          {
+            :items => [
+              {
+                :count => 1,
+                :id => "2003"
+              },
+              {
+                :count => 1,
+                :id => "2004"
+              }
+            ],
+            :type => "Consumable"
+          },
+          {
+            :items => [
+              {
+                :count => 1,
+                :id => "1056"
+              }
+            ],
+            :type => "Starting Items"
+          }
+        ],
+        :map => "any",
+        :associatedMaps => [1]
+      }.to_json
+    end
+
+    it 'should be able to save first json input' do
+      @item_set.item_set_json = @json_input_1
+      @item_set.save.should_not be_blank
+    end
+
+    it 'should be able to save second json input' do
+      @item_set.item_set_json = @json_input_2
+      @item_set.save.should_not be_blank
+    end
+
+    it 'should output a game readable json' do
+      @item_set.item_set_json = @json_input_1
+      @item_set.save
+
+      output_json = {
+        :blocks => [
+          {
+            :items => [
+              {
+                :count => 1,
+                :id => "2003"
+              },
+              {
+                :count => 1,
+                :id => "2004"
+              }
+            ],
+            :type => "Consumable"
+          },
+          {
+            :items => [
+              {
+                :count => 1,
+                :id => "1056"
+              }
+            ],
+            :type => "Starting Items"
+          }
+        ],
+        :map => "any",
+        :associatedMaps => [],
+        :mode => 'any',
+        :title => @item_set.display_name,
+        :sortrank => 1,
+        :isGlobalForMaps => true,
+        :isGlobalForChampions => false,
+        :champion => @item_set.champion,
+        :type => "custom",
+        :priority => false
+      }.to_json
+
+      @item_set.to_game_json.should == output_json
+    end
+  end
 end
