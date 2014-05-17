@@ -157,6 +157,12 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
   # be set to true
   $scope.hasChanged = false
 
+  window.onbeforeunload = () ->
+    if $scope.hasChanged
+      'It looks like you did not save your item set -- if you leave before submitting your changes will be lost.'
+    else
+      undefined
+
   # We need to watch for changes to tagFilter model
   # so the item shop can filter accordingly
   $scope.$watch('tagFilter', () ->
@@ -198,6 +204,10 @@ itemSetNamespace.controller("itemSetsController",  ($scope, $http) ->
           console.log('TODO: HANDLE ERRORS')
           console.log('error occured while trying to update')
     )
+
+  $scope.undo = () ->
+    $scope.itemSetBlocks = deepClone($scope.oldItemSetBlocks)
+
 
   # categorical filters are filtered
   # by an OR operation

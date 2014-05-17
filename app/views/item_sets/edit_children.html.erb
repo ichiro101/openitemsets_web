@@ -1,11 +1,8 @@
 <div ng-controller="itemSetsController" class="row">
   <h1>Edit Item Set for <%= @item_set.champion %>
-    <button ng-click="updateItemSet()" type="button" class="btn btn-default">Apply Changes<span ng-show="hasChanged">*</span></button>
-    <% if !@item_set.visible_to_public %>
-      <button save-and-publish type="button" class="btn btn-primary">Save and Publish</button>
-    <% end %>
-    <button save-and-close type="button" class="btn btn-primary">Save and Close</button>
-    <%= link_to("Go Back Without Saving", item_set_path(@item_set), :class => "btn btn-warning") %>
+    <button ng-click="updateItemSet()" type="button" class="btn btn-primary">Save<span ng-show="hasChanged">*</span></button>
+    <button ng-disabled="!hasChanged" ng-click="undo()" type="button" class="btn btn-info">Undo</button>
+    <%= link_to("Go Back", item_set_path(@item_set), :class => "btn btn-danger") %>
   </h1>
   <!-- SHOP AREA -->
   <div class="col-md-6">
@@ -209,6 +206,7 @@
       </div><!-- item -->
     </div><!-- item-set-block -->
     <button ng-click="addBlock()" type="button" class="btn btn-info">New Block</button>
+    <button ng-click="updateItemSet()" type="button" class="btn btn-primary">Save<span ng-show="hasChanged">*</span></button>
   </div><!-- col-sm-6 -->
   <!-- END OF RIGHT COLUMN -->
 

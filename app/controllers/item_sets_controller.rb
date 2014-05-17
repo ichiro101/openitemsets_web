@@ -100,6 +100,7 @@ class ItemSetsController < ApplicationController
       return
     end
 
+    @item_set.visible_to_public = true
     @item_set.item_set_json = params[:json]
 
     if @item_set.save
