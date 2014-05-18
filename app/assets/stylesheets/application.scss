@@ -20,3 +20,18 @@ div.modal-body {
     max-height: 700px;
   }
 }
+
+footer {
+  margin-top: 5em;
+  margin-bottom: 5em;
+
+  ul {
+    padding-left: 0;
+  }
+
+  ul li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+  }
+}
