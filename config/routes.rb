@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :sessions
+  resources :subscriptions
 
   root :to => "home#index"
 

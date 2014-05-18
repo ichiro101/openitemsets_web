@@ -46,7 +46,7 @@ class ItemSet < ActiveRecord::Base
 
   before_save :parse_json
 
-  after_save :subscribe_owner
+  after_create :subscribe_owner
 
   def champion_image_url
     "http://static.openitemsets.com/img/champion/#{self.champion}.png"
