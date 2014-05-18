@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   resources :sessions
   resources :subscriptions
 
+  # api routes
+  scope '/api' do
+    get 'get_user', :to => 'client_api#get_user'
+  end
+
   root :to => "home#index"
 
 end
