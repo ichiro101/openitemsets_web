@@ -10,8 +10,15 @@
 
     <hr />
 
-    <a class="btn btn-primary" href="#">
-     <span class="glyphicon glyphicon-book"></span> How to Use
+    <% if @subscription.blank? %>
+      <%= link_to(raw("<span class='glyphicon glyphicon-ok'></span> ") +
+                  "Subscribe", subscriptions_path(:subscription => {:item_set_id => @item_set.id}), :method => :post, :class => 'btn btn-primary' ) %>
+    <% else %>
+      <%= link_to(raw("<span class='glyphicon glyphicon-remove'></span> ") +
+                  "Unsubscribe", subscription_path(@subscription), :method => :delete, :class => 'btn btn-primary' ) %>
+    <% end %>
+    <a class="btn btn-default" href="#">
+      <span class="glyphicon glyphicon-book"></span> How to Use
     </a>
 
     <button ng-click="syntaxHighlight()"  type="button" class="btn" data-toggle="modal" data-target="#jsonModal">

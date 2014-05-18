@@ -70,7 +70,7 @@ describe SubscriptionsController do
       end
 
       it 'should respond with a redirect' do
-        response.should redirect_to(item_sets_path)
+        response.should redirect_to(item_set_path(@item_set))
       end
     end
   end

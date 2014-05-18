@@ -13,16 +13,17 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.create(:user => current_user,
                                       :item_set_id => params[:subscription][:item_set_id])
     
-    if @subscription.save
+    if @subscription
       flash[:success] = 'Subscribed to this item set'
     else
-      flash[:error] = 'Error has occured while trying to subscribe to this item set'
+      flash[:error] = "Error has occured while trying to subscribe to this item set: #{@subscription.errors.first.to_s}"
     end
     redirect_to item_set_path(@item_set)
   end
 
   def destroy
     @subscription = Subscription.where(:id => params[:id]).first
+    item_set_id = @subscription.item_set_id
 
     if @subscription.blank?
       # should not be here, but have an error handler just in case
@@ -34,6 +35,6 @@ class SubscriptionsController < ApplicationController
     @subscription.destroy
 
     flash[:success] = 'Unsubscribed from this item set'
-    redirect_to item_sets_path
+    redirect_to item_set_path(item_set_id)
   end
 end

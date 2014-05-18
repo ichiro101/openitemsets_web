@@ -118,6 +118,7 @@ class ItemSetsController < ApplicationController
 
   def show
     @item_set = ItemSet.find(params[:id])
+    @subscription = Subscription.where(:user => current_user, :item_set => @item_set).first
 
     if !@item_set.item_set_json.blank?
       @item_set_data = JSON.parse(@item_set.item_set_json)
