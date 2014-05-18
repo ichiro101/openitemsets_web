@@ -32,9 +32,6 @@ deepClone = (obj) ->
     return copy
   throw new Error("Unable to copy obj! Its type isn't supported.")
 
-$(document).on('ready page:load', ->
-  angular.bootstrap(document.body, ['itemSet'])
-)
 
 # the default item shop filter, filters out all the items
 # we cannot buy
@@ -136,7 +133,7 @@ buildJSON = (blockData, mapOption, selectedMap) ->
   exportObj.map = 'any'
   exportObj
 
-itemSetCtrl = itemSetNamespace.controller("itemSetsController", ['$scope', '$http', ($scope, $http) ->
+itemSetNamespace.controller("itemSetsController", ['$scope', '$http', ($scope, $http) ->
   # itemData which was retrieved from redis
   $scope.itemData = gon.itemData
 
