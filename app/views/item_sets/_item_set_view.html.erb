@@ -1,0 +1,11 @@
+<% item_set_data['blocks'].each do |item_block| %>
+  <div class="item-set-block-view well">
+    <h4><%= item_block['type'] %></h4>
+    <% item_block['items'].each do |item_object| %>
+      <div data-toggle="tooltip" data-placement="auto" title="<%= item_description(item_object['id']) %>" class="item" >
+        <%= item_img_for(item_object['id']) %>
+        <span><%= item_gold(item_object['id']) %></span>
+      </div><!-- item -->
+    <% end %>
+  </div><!-- item set block -->
+<% end %>
