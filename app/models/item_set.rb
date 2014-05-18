@@ -96,7 +96,13 @@ class ItemSet < ActiveRecord::Base
   end
 
   def subscribe_owner
-    Subscription.create(:item_set_id => self.id, :user_id => self.user.id)
+    if self.user_id.blank?
+      # skip if we don't have any user record associated with this
+      # item set
+      return
+    end
+
+    Subscription.create(:item_set_id => self.id, :user_id => self.user_id)
   end
 
   private
