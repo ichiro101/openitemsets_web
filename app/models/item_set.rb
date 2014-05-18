@@ -59,7 +59,15 @@ class ItemSet < ActiveRecord::Base
   end
 
   def to_game_json(pretty = false)
-    item_set_object = JSON.parse(self.item_set_json)
+    item_set_object = JSON.parse(item_set_json)
+
+    # convert all the item id's to string (this is needed
+    # for the league client to reconize the item id's)
+    item_set_object['blocks'].each do |item_block|
+      item_block['items'].each do |item_obj|
+        item_obj['id'] = item_obj['id'].to_s
+      end
+    end
 
     if self.map_option == MAP_OPTION_ALL_MAPS
       isGlobalForMaps = true

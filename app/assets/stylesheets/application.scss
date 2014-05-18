@@ -1,5 +1,7 @@
 //= require_tree .
 //= require rails_bootstrap_forms
+//= require syntax-highlighter-rails/shCore
+//= require syntax-highlighter-rails/shThemeDefault
 //= require_self
 
 div#page-content {
@@ -9,4 +11,12 @@ div#page-content {
 
 div.row {
   padding-bottom: 10px;
+}
+
+div.modal-body {
+  max-height: 800px;
+  
+  div {
+    max-height: 700px;
+  }
 }

@@ -1,6 +1,8 @@
-_itemSetView = angular.module('itemSetView', [])
 
-_itemSetView.controller("itemSetViewController", ['$scope', ($scope) ->
-  console.log('hello world')
+namespace = angular.module('itemSetView', [])
+
+namespace.controller("itemSetViewController", ['$scope', ($scope) ->
+  $scope.syntaxHighlight = () ->
+    SyntaxHighlighter.highlight()
   ]
 )

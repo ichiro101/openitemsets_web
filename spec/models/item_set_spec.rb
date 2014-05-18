@@ -31,11 +31,11 @@ describe ItemSet do
             :items => [
               {
                 :count => 1,
-                :id => "2003"
+                :id => 2003
               },
               {
                 :count => 1,
-                :id => "2004"
+                :id => 2004
               }
             ],
             :type => "Consumable"
@@ -44,7 +44,7 @@ describe ItemSet do
             :items => [
               {
                 :count => 1,
-                :id => "1056"
+                :id => 1056
               }
             ],
             :type => "Starting Items"
@@ -60,11 +60,11 @@ describe ItemSet do
             :items => [
               {
                 :count => 1,
-                :id => "2003"
+                :id => 2003
               },
               {
                 :count => 1,
-                :id => "2004"
+                :id => 2004
               }
             ],
             :type => "Consumable"
@@ -73,7 +73,7 @@ describe ItemSet do
             :items => [
               {
                 :count => 1,
-                :id => "1056"
+                :id => 1056
               }
             ],
             :type => "Starting Items"

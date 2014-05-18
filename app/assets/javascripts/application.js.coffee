@@ -19,6 +19,8 @@
 #= require checklist-model
 #= require bootstrap
 #= require turbolinks
+#= require syntax-highlighter-rails/shCore
+#= require syntax-highlighter-rails/shBrushJScript
 #= require_tree .
 
 

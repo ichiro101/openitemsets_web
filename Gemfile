@@ -49,6 +49,8 @@ gem 'bootstrap_form'
 gem 'angularjs-rails'
 gem 'underscore-rails'
 gem 'jquery-ui-rails'
+gem 'syntax-highlighter-rails'
+gem 'jquery-turbolinks'
 
 # deployment
 gem 'thin'
