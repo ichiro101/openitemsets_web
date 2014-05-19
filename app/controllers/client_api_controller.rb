@@ -26,4 +26,18 @@ class ClientApiController < ApplicationController
     render :text => user.subscription_hash
   end
 
+  def get_user_subscription
+    user = User.where(:id => params[:query]).first
+
+    if user.blank?
+      render :text => 'error: user not found'
+      return
+    end
+
+    item_set_ids = Subscription.where(:user => user).to_a.map {
+      |elem| elem.item_set_id
+    }
+    render :text => item_set_ids
+  end
+
 end
