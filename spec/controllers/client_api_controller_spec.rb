@@ -28,7 +28,7 @@ describe ClientApiController do
       get 'get_user', :query => 'orianna@example.com'
       response.body.should == @user.id.to_s
     end
-  end
+  end # get user id
 
   context 'getting sha1 hash for content' do
     before(:each) do
@@ -96,7 +96,7 @@ describe ClientApiController do
 
       hash_one.should == hash_two
     end
-  end
+  end # sha1 hash
 
   context 'get user subscription list' do
     before(:each) do
@@ -157,6 +157,31 @@ describe ClientApiController do
       item_set_ids.each do |item_set_id|
         ItemSet.where(:id => item_set_id).count.should == 1
       end
+    end
+  end # get user subscription list
+
+  context 'get item set json' do
+    before(:each) do
+      @item_set = FactoryGirl.create(:item_set)
+      get 'get_item_set', :query => @item_set.id
+    end
+
+
+    it 'should return content' do
+      response.body.should_not be_blank
+    end
+
+    it 'should return without error' do
+      response.body.start_with?('error').should be_false
+    end
+
+    it 'should return a JSON parseable text' do
+      # this should not produce an error
+      JSON.parse(response.body)
+    end
+
+    it 'should be text of item set' do
+      response.body.should == @item_set.to_game_json
     end
   end
 end

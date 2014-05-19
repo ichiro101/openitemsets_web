@@ -40,4 +40,15 @@ class ClientApiController < ApplicationController
     render :text => item_set_ids
   end
 
+  def get_item_set
+    item_set = ItemSet.where(:id => params[:query]).first
+
+    if item_set.blank?
+      return :text => 'error: item set not found'
+      return
+    end
+
+    render :text => item_set.to_game_json
+  end
+
 end
