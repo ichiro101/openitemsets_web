@@ -55,6 +55,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
+            <li><%= link_to("Getting Started", '/install') %></li>
             <li><%= link_to("Browse Item Sets", item_sets_path) %></li>
             <% if signed_in? %>
               <li><%= link_to("View My Item Sets", profile_user_path(current_user)) %></li>
