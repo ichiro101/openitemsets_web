@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     get 'get_item_set', :to => 'client_api#get_item_set'
   end
 
+  get '/install', :to => 'home#install'
+  get '/tos', :to => 'home#tos'
+  get '/privacy', :to => 'home#privacy'
+  get '/about_us', :to => 'home#about_us'
   root :to => "home#index"
 
 end
