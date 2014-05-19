@@ -1,6 +1,15 @@
 class ItemSetsController < ApplicationController
 
-  before_filter :require_authentication, :only => [:new, :create, :edit, :update, :edit_children, :destroy, :update_json]
+  before_filter :require_authentication, 
+    :only => [
+      :new, 
+      :create, 
+      :edit, 
+      :update, 
+      :edit_children, 
+      :destroy, 
+      :update_json
+    ]
 
   def index
     @item_sets = ItemSet.where(:visible_to_public => true).page params[:page]
