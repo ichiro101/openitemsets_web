@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # api routes
   scope '/api' do
     get 'get_user', :to => 'client_api#get_user'
+    get 'get_user_hash', :to => 'client_api#get_user_hash'
   end
 
   root :to => "home#index"

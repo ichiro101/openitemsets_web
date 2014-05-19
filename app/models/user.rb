@@ -28,6 +28,23 @@ class User < ActiveRecord::Base
     self.hashed_password = @password
   end
 
+  def subscription_hash
+    require 'digest/sha1'
+    subscriptions = Subscription.where(:user_id => self.id)
+
+    if subscriptions.count == 0
+      return 'empty'
+    end
+
+    array_to_hash = []
+
+    subscriptions.map do |sub|
+      array_to_hash << sub.item_set.item_set_json
+    end
+
+    Digest::SHA1.hexdigest(array_to_hash.to_json)
+  end
+
   def display_name
     username
   end

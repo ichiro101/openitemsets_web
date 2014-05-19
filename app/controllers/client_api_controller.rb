@@ -15,4 +15,15 @@ class ClientApiController < ApplicationController
     render :text => user.id
   end
 
+  def get_user_hash
+    user = User.where(:id => params[:query]).first
+
+    if user.blank?
+      render :text => 'error: user not found'
+      return
+    end
+
+    render :text => user.subscription_hash
+  end
+
 end
