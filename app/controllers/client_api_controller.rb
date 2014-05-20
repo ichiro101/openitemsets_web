@@ -10,6 +10,7 @@ class ClientApiController < ApplicationController
 
     if user.blank?
       render :text => 'error: user not found'
+      return
     end
 
     render :text => user.id
