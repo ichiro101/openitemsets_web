@@ -4,4 +4,8 @@ class HomeController < ApplicationController
     @page_title = "Open Item Sets"
   end
 
+  def install
+    @version = "0.0.1"
+  end
+
 end
