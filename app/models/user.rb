@@ -6,9 +6,14 @@ class User < ActiveRecord::Base
   has_many :item_sets
 
   validates :username, :uniqueness => true
+  validates :email, :uniqueness => true
 
   def self.authenticate(username, password)
     @user = User.where(:username => username).first
+
+    if @user.blank?
+      @user = User.where(:email => username).first
+    end
 
     if !@user.blank?
       if @user.password == password

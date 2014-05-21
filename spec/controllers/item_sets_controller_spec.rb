@@ -7,7 +7,7 @@ describe ItemSetsController do
 
     # for testing permissions
     @item_set_user = @item_set.user
-    @another_user = FactoryGirl.create(:user, :username => "Izumi Konata")
+    @another_user = FactoryGirl.create(:user, :username => "Izumi Konata", :email => "konachan@example.com")
   end
 
   describe "index" do

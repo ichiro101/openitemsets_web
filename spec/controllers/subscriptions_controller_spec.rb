@@ -11,7 +11,7 @@ describe SubscriptionsController do
 
   describe 'create' do
     before(:each) do
-      @user = FactoryGirl.create(:user, :username => 'Rammus')
+      @user = FactoryGirl.create(:user, :username => 'Rammus', :email => "Rammus@example.com")
       @item_set = FactoryGirl.create(:item_set)
 
       post :create, :subscription => {:user_id => @user.id,
@@ -45,7 +45,7 @@ describe SubscriptionsController do
 
   describe 'destroy' do
     before(:each) do
-      @user = FactoryGirl.create(:user, :username => 'Rammus')
+      @user = FactoryGirl.create(:user, :username => 'Rammus', :email => "Rammus")
       @item_set = FactoryGirl.create(:item_set)
       @subscription = FactoryGirl.create(:subscription, :user => @user, :item_set => @item_set)
       @subscription_id = @subscription.id

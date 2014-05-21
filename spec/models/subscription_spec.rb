@@ -4,7 +4,7 @@ describe Subscription do
   describe 'as itself' do
     before(:each) do
       @subscription = Subscription.new
-      @subscription.user = FactoryGirl.create(:user, :username => 'Rammus')
+      @subscription.user = FactoryGirl.create(:user, :username => 'Rammus', :email => 'Rammus@example.com')
       @subscription.item_set = FactoryGirl.create(:item_set)
     end
 
