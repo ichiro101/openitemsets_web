@@ -45,7 +45,7 @@ class ClientApiController < ApplicationController
     item_set = ItemSet.where(:id => params[:query]).first
 
     if item_set.blank?
-      return :text => 'error: item set not found'
+      render :text => 'error: item set not found'
       return
     end
 
