@@ -18,6 +18,10 @@ class ItemSetsController < ApplicationController
       @item_sets = @item_sets.where(:champion => params[:champion])
     end
 
+    if !params[:role].blank?
+      @item_sets = @item_sets.where(:role => params[:role])
+    end
+
     @page_title = "Browse Item Sets"
   end
 

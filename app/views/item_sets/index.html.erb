@@ -3,12 +3,16 @@
 <div class="row">
   <div class="col-lg-10">
     <%= bootstrap_form_tag :url => item_sets_path, :method => :get, :layout => :inline do |f| %>
-      <%= f.collection_select(:champion, Champion.all, :id, :display_name, {:selected => params[:champion], :include_blank => "No Champion Filters"}) %>
+      <%= f.collection_select(:champion, Champion.all, :id, :name, {:selected => params[:champion], :include_blank => "No Champion Filter"}) %>
+      <%= f.collection_select(:role, ItemSet::ROLES, :to_s, :to_s, {:selected => params[:role], :include_blank => "No Position Filter"}) %>
       <%= f.submit "Filter" %>
     <% end %>
 
     <% @item_sets.each do |item_set| %>
       <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
+    <% end %>
+    <% if @item_sets.empty? %>
+      <p><em>No Matching Item Sets Found.</em></p>
     <% end %>
   <%= paginate @item_sets %>
   </div><!-- col -->
