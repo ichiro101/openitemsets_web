@@ -63,6 +63,11 @@ class ItemSet < ActiveRecord::Base
   end
 
   def to_game_json(pretty = false)
+    # don't bother if item_set_json is empty
+    if self.item_set_json.blank?
+      return
+    end
+
     item_set_object = JSON.parse(item_set_json)
 
     # convert all the item id's to string (this is needed
