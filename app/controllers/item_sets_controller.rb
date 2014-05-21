@@ -13,6 +13,10 @@ class ItemSetsController < ApplicationController
 
   def index
     @item_sets = ItemSet.where(:visible_to_public => true).page params[:page]
+    
+    if !params[:champion].blank?
+      @item_sets = @item_sets.where(:champion => params[:champion])
+    end
 
     @page_title = "Browse Item Sets"
   end

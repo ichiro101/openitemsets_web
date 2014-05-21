@@ -6,7 +6,8 @@
     <div class="media-body">
       <h4 class="media-heading"><%= link_to(item_set.display_name, item_set_path(item_set)) %>
     </h4>
-      <%= item_set.champion %>, <%= item_set.role %> by <%= link_to(item_set.user.display_name, profile_user_path(item_set.user)) %>
+    <%= item_set.champion %>, <%= item_set.role %> by <%= link_to(item_set.user.display_name, profile_user_path(item_set.user)) %> 
+    (<%= pluralize(item_set.subscriptions.count, "subscribers") %>)
       <% if !item_set.visible_to_public %>
         <em>-- This item set is hidden from public view</em>
       <% end %>

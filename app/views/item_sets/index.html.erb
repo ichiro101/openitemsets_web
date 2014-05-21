@@ -2,6 +2,11 @@
 <!-- ITEM SET LISTING AREA -->
 <div class="row">
   <div class="col-lg-10">
+    <%= bootstrap_form_tag :url => item_sets_path, :method => :get, :layout => :inline do |f| %>
+      <%= f.collection_select(:champion, Champion.all, :id, :display_name, {:selected => params[:champion], :include_blank => "No Champion Filters"}) %>
+      <%= f.submit "Filter" %>
+    <% end %>
+
     <% @item_sets.each do |item_set| %>
       <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
     <% end %>
