@@ -2,7 +2,9 @@
 <div ng-controller="itemSetViewController" class="row">
   <div class="col-lg-10">
     <p>Last updated <%= time_ago_in_words(@item_set.updated_at) %> ago.</p>
-    <p>Last updated <%= time_ago_in_words(@item_set.updated_at) %> ago.</p>
+    <p>Created at <%= time_ago_in_words(@item_set.created_at) %> ago by 
+    <%= mini_gravatar_for(@item_set.user) %>
+    <%= link_to(@item_set.user.display_name, profile_user_path(@item_set.user)) %>.</p>
 
     <%= @item_set.description %>
 
