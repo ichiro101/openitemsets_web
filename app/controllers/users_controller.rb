@@ -35,6 +35,17 @@ class UsersController < ApplicationController
     @page_title = "Profile for #{@user.display_name}"
   end
 
+  def resend
+    if current_user.email_confirmed
+      flash[:danger] = "Email address is already confirmed"
+      redirect_to preferences_users_path
+    else
+      flash[:success] = "Confirmation email sent"
+      UserMailer.confirm_email(current_user)
+      redirect_to preferences_users_path
+    end
+  end
+
   def email_confirm
     @user = User.where(:email_confirmation_token => params[:token]).first
 
@@ -86,14 +97,6 @@ class UsersController < ApplicationController
       redirect_to "/users/preferences"
     end
   end
-
-  def request_password_reset
-
-  end
-
-  def confirm_password_reset
-  end
-
 
   def preferences
     @user = current_user
