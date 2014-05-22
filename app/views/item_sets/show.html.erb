@@ -1,12 +1,17 @@
 
 <div ng-controller="itemSetViewController" class="row">
   <div class="col-lg-10">
+    <p>Last updated <%= time_ago_in_words(@item_set.updated_at) %> ago.</p>
 
+    <%= @item_set.description %>
+
+    <h3>Item Set</h3>
     <% if @item_set_data.blank? or @item_set_data['blocks'].blank? %>
       <p>This item set is currently blank.</p>
     <% else %>
       <%= render :partial => 'item_set_view', :locals => {:item_set_data => @item_set_data} %>
     <% end %>
+
 
     <hr />
 
@@ -24,6 +29,10 @@
     <button ng-click="syntaxHighlight()"  type="button" class="btn" data-toggle="modal" data-target="#jsonModal">
      <span class="glyphicon glyphicon-list"></span> Source
     </button>
+
+    <hr />
+
+    <h3>Comments</h3>
   </div><!-- col -->
 
 

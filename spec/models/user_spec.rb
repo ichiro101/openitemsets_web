@@ -42,4 +42,8 @@ describe User do
     user_record.should be_blank
   end
 
+  it "should set email confirmation token" do
+    @user.email_confirmation_token.should_not be_blank
+  end
+
 end

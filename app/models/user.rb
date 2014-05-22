@@ -1,4 +1,5 @@
 require 'bcrypt'
+require 'securerandom'
 
 class User < ActiveRecord::Base
   include BCrypt
@@ -7,6 +8,8 @@ class User < ActiveRecord::Base
 
   validates :username, :uniqueness => true
   validates :email, :uniqueness => true
+
+  before_save :set_email_confirmation_token
 
   def self.authenticate(username, password)
     @user = User.where(:username => username).first
@@ -52,6 +55,18 @@ class User < ActiveRecord::Base
 
   def display_name
     username
+  end
+
+  def set_email_confirmation_token
+    if self.email_confirmation_token.blank?
+      self.email_confirmation_token = 64.times.map { [*'0'..'9', *'a'..'z', *'A'..'Z'].sample }.join
+    end
+  end
+
+  def set_password_reset_token
+    if self.email_confirmation_token.blank?
+      self.password_reset_token = 64.times.map { [*'0'..'9', *'a'..'z', *'A'..'Z'].sample }.join
+    end
   end
 
 end
