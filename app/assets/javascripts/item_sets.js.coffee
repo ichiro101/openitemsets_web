@@ -37,6 +37,9 @@ deepClone = (obj) ->
 # we cannot buy
 defaultFilters = (itemData) ->
   purchasableItems = _.filter(itemData, (itemObject) ->
+    if itemObject.name.indexOf("(Showdown)") > -1
+      return false
+
     itemObject.gold.purchasable
   )
 
