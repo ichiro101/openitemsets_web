@@ -57,4 +57,25 @@ describe UsersController do
     end
   end
 
+  describe 'email_confirmation' do
+    before(:each) do
+      # test the precondition
+      @user.email_confirmed.should be_false
+    end
+
+    it 'should redirect to root url' do
+      get :email_confirm, :token => @user.email_confirmation_token
+      response.should redirect_to(root_url)
+    end
+
+    it 'should confirm the email address' do
+      get :email_confirm, :token => @user.email_confirmation_token
+      User.find(@user.id).email_confirmed.should be_true
+    end
+
+    it 'should get a redirect with invalid tokens as well' do
+      get :email_confirm, :token => 'Teemo is the bestest champion'
+      response.should redirect_to(root_url)
+    end
+  end
 end

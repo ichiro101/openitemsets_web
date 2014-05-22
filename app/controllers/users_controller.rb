@@ -28,4 +28,28 @@ class UsersController < ApplicationController
     @page_title = "Profile for #{@user.display_name}"
   end
 
+  def email_confirm
+    @user = User.where(:email_confirmation_token => params[:token]).first
+
+    if @user.blank?
+      flash[:notice] = "Invalid email confirmation token"
+      redirect_to(root_url)
+      return
+    end
+
+    if @user.email_confirmed
+      flash[:notice] = "Email address is already confirmed"
+      redirect_to(root_url)
+      return
+    end
+
+    @user.email_confirmed = true
+    if @user.save
+      flash[:success] = "Your email address has been confirmed"
+      redirect_to(root_url)
+    else
+      flash[:notice] = "Something went wrong while trying to confirm your email address, please contact us at the forums"
+      redirect_to(root_url)
+    end
+  end
 end

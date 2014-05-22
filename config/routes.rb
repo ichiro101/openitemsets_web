@@ -10,7 +10,12 @@ Rails.application.routes.draw do
     member do
       get :profile
     end
+
+    collection do
+      get :email_confirm
+    end
   end
+
   resources :sessions
   resources :subscriptions
 
