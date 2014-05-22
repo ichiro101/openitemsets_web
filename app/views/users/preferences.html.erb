@@ -1,2 +1,22 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h4>Avatar</h4>
+    <p><%= gravatar_for(@user) %></p>
 
-<p>To do...</p>
+    <p>
+    To change your avatar, go to <%= link_to("gravatar", "http://www.gravatar.com") %>, and
+    register an account with the same E-mail address you registered with Open Item Sets.
+
+    Your Avatar will change within 24 hours.
+    </p>
+
+    <h4>Email Address</h4>
+    <% if @user.email_confirmed? %>
+      <p>Your email address is confirmed</p>
+    <% else %>
+      <p>Your email address is not confirmed, click 
+      <%= link_to("here", "/users/resend") %> 
+      to resend your confirmation email.</p>
+    <% end %>
+  </div>
+</div>

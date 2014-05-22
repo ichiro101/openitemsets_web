@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :require_authentication, :only => [:preferences]
+
   def new
     @page_title = "Sign up"
 
