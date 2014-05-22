@@ -16,6 +16,11 @@ class UsersController < ApplicationController
     @user.email = params[:user][:email]
 
     if @user.save
+      # send a confirmation email if the user entered an email
+      if !@user.email.blank?
+        UserMailer.confirm_email(current_user)
+      end
+
       flash[:success] = "Successfully signed up, signed in as #{@user.username}"
       session[:user_id] = @user.id
 
@@ -68,8 +73,12 @@ class UsersController < ApplicationController
     # once the email has been changed, it needs
     # to be confirmed again
     @user.email_confirmed = false
+    @user.set_email_confirmation_token
 
     if @user.save
+      # send a confirmation email
+      UserMailer.confirm_email(current_user)
+
       flash[:success] = "Email address successfully changed. Confirmation Email has been sent, please check your Email inbox."
       redirect_to "/users/preferences"
     else
@@ -77,6 +86,14 @@ class UsersController < ApplicationController
       redirect_to "/users/preferences"
     end
   end
+
+  def request_password_reset
+
+  end
+
+  def confirm_password_reset
+  end
+
 
   def preferences
     @user = current_user
