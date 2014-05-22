@@ -5,3 +5,10 @@
 
   <%= f.submit "Sign in" %>
 <% end %>
+
+<p>
+Don't have an account? Click <%= link_to("here", new_user_path) %> to create a new account.
+</p>
+<p>
+Forgot your password? Click <%= link_to("here", "/users/password_reset") %> to reset your password.
+</p>
