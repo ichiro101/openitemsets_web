@@ -18,5 +18,10 @@
       <%= link_to("here", "/users/resend") %> 
       to resend your confirmation email.</p>
     <% end %>
+
+    <%= bootstrap_form_tag :url => update_email_user_path(current_user), :method => :put, :layout => :inline do |f| %>
+      <%= f.email_field :email, :value => @user.email %>
+      <%= f.submit "Change Email Address" %>
+    <% end %>
   </div>
 </div>

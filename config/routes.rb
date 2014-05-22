@@ -9,11 +9,13 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :profile
+      put :update_email
     end
 
     collection do
       get :email_confirm
       get :preferences
+      get :resend
     end
   end
 

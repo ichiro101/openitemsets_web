@@ -55,6 +55,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_email
+    @user = current_user
+
+    # do nothing if the email address is the same
+    if @user.email == params[:email]
+      redirect_to "/users/preferences"
+      return
+    end
+
+    @user.email = params[:email]
+    # once the email has been changed, it needs
+    # to be confirmed again
+    @user.email_confirmed = false
+
+    if @user.save
+      flash[:success] = "Email address successfully changed. Confirmation Email has been sent, please check your Email inbox."
+      redirect_to "/users/preferences"
+    else
+      flash[:danger] = "Failed to save your new email address"
+      redirect_to "/users/preferences"
+    end
+  end
+
   def preferences
     @user = current_user
     @page_title = "User Preferences"
