@@ -6,11 +6,13 @@
     <div class="media-body">
       <h4 class="media-heading"><%= link_to(item_set.display_name, item_set_path(item_set)) %>
     </h4>
-    <p><%= item_set.champion %>, <%= item_set.role %> by <%= link_to(item_set.user.display_name, profile_user_path(item_set.user)) %> 
+    <p><%= item_set.champion %>, <%= item_set.role %> by 
+    <%= mini_gravatar_for(item_set.user) %>
+    <%= link_to(item_set.user.display_name, profile_user_path(item_set.user)) %> 
     (<%= pluralize(item_set.subscriptions.count, "subscribers") %>)
       <% if !item_set.visible_to_public %>
         <em>-- This item set is hidden from public view</em>
       <% end %></p>
-      <p>Created <%= time_ago_in_words(item_set.created_at) %> ago. <em>Lasted updated <%= time_ago_in_words(item_set.updated_at) %> ago.</em></p>
+      <p>Lasted updated <%= time_ago_in_words(item_set.updated_at) %> ago.</p>
     </div><!-- media-body -->
   </div><!-- media -->

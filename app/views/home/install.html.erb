@@ -13,7 +13,9 @@ Steps to get started using Open Item Sets:
 <h3>Download the Desktop Client</h3>
 <p>The current version of the desktop client is <strong><%= @version %></strong>. </p>
 
-<p><%= link_to("Download", "#", :class => "btn btn-primary", :type => "button") %> </p>
+<p><%= link_to("Download", 
+               "http://static.openitemsets.com/downloads/openitemsets-" + @version +"-windows-installer.exe", 
+               :class => "btn btn-primary", :type => "button") %> </p>
 <p><%= link_to("Desktop Client Source Code", "https://github.com/ichiro101/OpenItemSets_NativeClient") %></p>
 
 

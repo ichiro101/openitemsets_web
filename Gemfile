@@ -31,6 +31,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'gon'
+gem 'gravatar_image_tag'
 
 # for riot api
 gem 'outrageous'

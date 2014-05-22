@@ -1,6 +1,21 @@
 
 <div class="row">
   <div class="col-lg-6">
+    <p><%= gravatar_for(@user) %></p>
+  </div>
+  <div class="col-lg-6">
+    <table class="table">
+      <tr>
+        <th>Name</th> <td><%= @user.display_name %></td>
+      </tr>
+      <tr>
+        <th>Member for</th> <td><%= time_ago_in_words(@user.created_at) %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
     <h3>Item Sets Created</h3>
     <% @user.item_sets.each do |item_set| %>
       <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>

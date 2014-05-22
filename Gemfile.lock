@@ -67,6 +67,7 @@ GEM
     gon (5.0.4)
       actionpack (>= 2.3.0)
       json
+    gravatar_image_tag (1.2.0)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -221,6 +222,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   gon
+  gravatar_image_tag
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
