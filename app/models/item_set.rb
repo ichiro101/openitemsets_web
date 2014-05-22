@@ -40,7 +40,7 @@ class ItemSet < ActiveRecord::Base
   # active record relations of ItemSet
   belongs_to :user
 
-  has_many :subscriptions
+  has_many :subscriptions, :dependent => :delete_all
 
   # rails validations
   validates :champion, :inclusion => {:in => Champion.names}, :presence => true

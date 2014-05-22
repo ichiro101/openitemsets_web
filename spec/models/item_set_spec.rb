@@ -23,6 +23,14 @@ describe ItemSet do
     @item_set.save.should be_blank
   end
 
+  it "should delete all subscriptions once the record is destroyed" do
+    Subscription.count.should == 0
+    item_set = FactoryGirl.create(:item_set)
+    Subscription.count.should == 1
+    item_set.destroy
+    Subscription.count.should == 0
+  end
+
   describe 'json test' do
     before :each do
       @json_input_1 = {
