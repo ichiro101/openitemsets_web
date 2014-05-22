@@ -52,4 +52,9 @@ class UsersController < ApplicationController
       redirect_to(root_url)
     end
   end
+
+  def preferences
+    @user = current_user
+    @page_title = "User Preferences"
+  end
 end
