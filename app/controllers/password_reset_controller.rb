@@ -21,6 +21,7 @@ class PasswordResetController < ApplicationController
       redirect_to root_url
     end
     
+    UserMailer.reset_password(user).deliver!
     flash[:success] = "Password reset link has been sent to your email."
     redirect_to root_url
   end

@@ -1,0 +1,6 @@
+<p>To reset your password, please enter the Email addres you registered your account with.</p>
+
+<%= bootstrap_form_tag :url => "/password_reset/reset_send", :method => :get do |f| %>
+  <%= f.email_field :email %>
+  <%= f.submit "Reset password" %>
+<% end %>

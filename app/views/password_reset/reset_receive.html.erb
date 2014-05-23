@@ -1,1 +1,7 @@
+<h1>Reset your account password.</h1>
 
+<%= bootstrap_form_tag :url => "/password_reset/reset_change_password", :method => :put do |f| %>
+  <%= f.hidden_field :token, :value => params[:token] %>
+  <%= f.password_field :password %>
+  <%= f.submit "Reset password" %>
+<% end %>
