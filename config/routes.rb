@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :item_sets do
+    resources :item_set_comments
     member do
       get :edit_children
       put :update_json
