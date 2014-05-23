@@ -50,7 +50,7 @@ class ItemSetCommentsController < ApplicationController
       return
     end
 
-    @item_set.destroy
+    @item_set_comment.destroy
 
     flash[:success] = "Comment deleted"
 

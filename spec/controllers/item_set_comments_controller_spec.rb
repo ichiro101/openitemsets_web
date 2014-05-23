@@ -125,6 +125,8 @@ describe ItemSetCommentsController do
 
       it "should delete the comment" do
         @item_set.item_set_comments.count.should == 0
+
+        ItemSet.count.should > 0
       end
 
     end # context

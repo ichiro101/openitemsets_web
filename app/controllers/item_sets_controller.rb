@@ -138,6 +138,11 @@ class ItemSetsController < ApplicationController
     @item_set = ItemSet.find(params[:id])
     @subscription = Subscription.where(:user => current_user, :item_set => @item_set).first
 
+    # for the comment list
+    @item_set_comments = @item_set.item_set_comments
+    # for the form
+    @item_set_comment = @item_set.item_set_comments.new
+
     if !@item_set.item_set_json.blank?
       @item_set_data = JSON.parse(@item_set.item_set_json)
     else
