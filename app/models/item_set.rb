@@ -47,6 +47,10 @@ class ItemSet < ActiveRecord::Base
   validates :champion, :inclusion => {:in => Champion.names}, :presence => true
   validates :role, :inclusion => {:in => ROLES}, :presence => true
 
+  # make sure the json isn't TOO long that it would crash our servers, most item sets will probably never
+  # even be close to this limit
+  validates_length_of :item_set_json, :maximum => 10000
+
   before_save :parse_json
 
   after_create :subscribe_owner
