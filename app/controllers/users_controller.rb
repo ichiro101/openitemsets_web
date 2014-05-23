@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       # send a confirmation email if the user entered an email
       if !@user.email.blank?
-        UserMailer.confirm_email(current_user)
+        UserMailer.confirm_email(current_user).deliver!
       end
 
       flash[:success] = "Successfully signed up, signed in as #{@user.username}"
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       redirect_to preferences_users_path
     else
       flash[:success] = "Confirmation email sent"
-      UserMailer.confirm_email(current_user)
+      UserMailer.confirm_email(current_user).deliver!
       redirect_to preferences_users_path
     end
   end
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 
     if @user.save
       # send a confirmation email
-      UserMailer.confirm_email(current_user)
+      UserMailer.confirm_email(current_user).deliver!
 
       flash[:success] = "Email address successfully changed. Confirmation Email has been sent, please check your Email inbox."
       redirect_to "/users/preferences"
