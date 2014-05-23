@@ -135,7 +135,13 @@ class ItemSetsController < ApplicationController
   end
 
   def show
-    @item_set = ItemSet.find(params[:id])
+    @item_set = ItemSet.where(:id => params[:id]).first
+    if @item_set.blank?
+      flash[:danger] = "Sorry this item set does not seem to exist, or if it did exist at one point, it was deleted by the owner"
+      redirect_to item_sets_path
+      return
+    end
+
     @subscription = Subscription.where(:user => current_user, :item_set => @item_set).first
 
     # for the comment list
@@ -151,6 +157,12 @@ class ItemSetsController < ApplicationController
 
     @page_title = "View Item Set: #{@item_set.display_name}"
   end
+
+  def delete
+    @item_set = ItemSet.where(:id => params[:id]).first
+    @page_title = "Confirm Deletion #{@item_set.display_name}"
+  end
+
 
   def destroy
     @item_set = ItemSet.find(params[:id])

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     member do
       get :edit_children
       put :update_json
+      get :delete
     end
   end
   resources :users do

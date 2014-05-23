@@ -1,0 +1,8 @@
+<p>
+Are you <strong>sure</strong> you wish to delete this item set?
+</p>
+
+<p>
+  <%= link_to("Delete this Item Set", item_set_path(@item_set), :method => :delete, :class => "btn btn-danger") %>
+  <%= link_to("No I Want to go Back", item_set_path(@item_set), :class => "btn btn-info") %>
+</p>
