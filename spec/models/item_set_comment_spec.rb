@@ -4,7 +4,7 @@ describe ItemSetComment do
 
   before(:each) do
     @item_set = FactoryGirl.create(:item_set)
-    @comment = FactoryGirl.build(:item_set_comment, :item_set => @item_set, :user => @item_set.user)
+    @comment = FactoryGirl.build(:item_set_comment, :item_set => @item_set, :user => @item_set.user, :comment => "This is a test")
   end
 
   it "should be able to create the record" do
