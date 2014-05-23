@@ -41,6 +41,7 @@ class ItemSet < ActiveRecord::Base
   belongs_to :user
 
   has_many :subscriptions, :dependent => :delete_all
+  has_many :item_set_comments, :dependent => :delete_all
 
   # rails validations
   validates :champion, :inclusion => {:in => Champion.names}, :presence => true
