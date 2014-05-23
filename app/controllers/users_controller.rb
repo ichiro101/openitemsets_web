@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       # send a confirmation email if the user entered an email
       if !@user.email.blank?
-        UserMailer.confirm_email(current_user).deliver!
+        UserMailer.confirm_email(User.find(@user.id)).deliver!
       end
 
       flash[:success] = "Successfully signed up, signed in as #{@user.username}"
