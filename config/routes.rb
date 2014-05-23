@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   resources :sessions
   resources :subscriptions
 
+  # password reset routes
+  get '/password_reset/reset_request', :to => 'password_reset#reset_request'
+  get '/password_reset/reset_send', :to => 'password_reset#reset_send'
+  get '/password_reset/reset_receive', :to => 'password_reset#reset_receive'
+  put '/password_reset/reset_change_password', :to => 'password_reset#reset_change_password'
+
   # api routes
   scope '/api' do
     get 'get_user', :to => 'client_api#get_user'
