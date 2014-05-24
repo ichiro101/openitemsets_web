@@ -7,6 +7,16 @@ class OmniauthHandlerController < ApplicationController
     handle_omniauth(name, email)
   end
 
+  def handle_facebook
+    name = auth_hash[:info][:nickname]
+    if name.blank?
+      name = auth_hash[:info][:name]
+    end
+    email = auth_hash[:info][:email]
+
+    handle_omniauth(name, email)
+  end
+
   private
 
   def handle_omniauth(username, email)

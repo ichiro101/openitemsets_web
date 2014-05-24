@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   # omniauth callback routes
   get '/auth/google_oauth2/callback', :to => 'omniauth_handler#handle_google'
+  get '/auth/facebook/callback', :to => 'omniauth_handler#handle_facebook'
 
   # api routes
   scope '/api' do
