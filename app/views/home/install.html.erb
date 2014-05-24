@@ -1,6 +1,12 @@
-<h1>Getting Started</h1>
+<h1>Download the Desktop Client</h1>
+<p>The current version of the desktop client is <strong><%= @version %></strong>. </p>
 
-<p>Scroll down below for the Desktop Client download.</p>
+<p><%= link_to("Download", 
+               "http://static.openitemsets.com/downloads/openitemsets-" + @version +"-windows-installer.exe", 
+               :class => "btn btn-primary", :type => "button") %> </p>
+
+
+<h1>Getting Started</h1>
 
 <h4>Register an Account</h4>
 <p>Before you get started with Open Item Sets, it is recommended that you register an account. Once
@@ -9,11 +15,20 @@ players.</p>
 
 <h4>Download the Desktop Client</h4>
 <p>
-Once you have created an account, you will need to download the Desktop Client. Our Desktop Client
-will ensure that the item sets on your computer will stay in sync with the item sets you subscribe
-to or created. Once you installed the desktop client, the desktop client will prompt for your League
-of Legends installation folders and username. Your username is the name that is displayed on the
-top right corner of the site if you are viewing this site from a PC. 
+Once you have created an account, you will need to download the Desktop Client. (Link at top of this
+page) Our Desktop Client will ensure that the item sets on your computer will stay in sync with the
+item sets you subscribe to or created. Once you installed the desktop client, the desktop client
+will prompt for your League of Legends installation folders and username. Your username is the name
+that is displayed on the top right corner of the site if you are viewing this site from a PC. 
+</p>
+
+
+<p>
+<img src="/images/01-username.jpg" class="img-responsive" alt="Where to Find Username">
+</p>
+
+<p>
+<em>Figure 1. </em> Make sure the username in the client matches exactly what it is displayed on the top right corner
 </p>
 
 <h4>Creating Your First Item Set</h4>
@@ -21,6 +36,13 @@ top right corner of the site if you are viewing this site from a PC.
 To create an item set, click on "Browse Item Sets" on the top of the page, and then click on
 "Create Item Set". You will be prompted for the title, champion and position. Once that's done
 you can start editing your own item set via our drag and drop interface.
+</p>
+
+<p>
+<img src="/images/02-create-itemset.png" class="img-responsive" alt="Image of Item Set Creation">
+</p>
+<p>
+<em>Figure 2. </em> Item Set creation process, and please don't actually use this build on Ahri.
 </p>
 
 <h4>Subscribing to Other Player's Item Sets</h4>
@@ -37,12 +59,9 @@ is stored seperately and will show up ingame, so don't worry if it doesn't show 
 client.
 </p>
 
-<h1>Download the Desktop Client</h1>
-<p>The current version of the desktop client is <strong><%= @version %></strong>. </p>
+<h3>Desktop Client</h3>
 
-<p><%= link_to("Download", 
+<p><%= link_to("Download the Desktop Client", 
                "http://static.openitemsets.com/downloads/openitemsets-" + @version +"-windows-installer.exe", 
                :class => "btn btn-primary", :type => "button") %> </p>
-<p><%= link_to("Desktop Client Source Code", "https://github.com/ichiro101/OpenItemSets_NativeClient") %></p>
-
 
