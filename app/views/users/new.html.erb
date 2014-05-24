@@ -1,4 +1,13 @@
+<h2>Sign Up with Google or Facebook</h2>
+<p>You can sign up with your own Google or Facebook account. It's instant and you don't have to
+memorize another password.</p>
 
+<p><%= link_to("Sign Up via Google", "/auth/google_oauth2", :class => "btn btn-default bgn-lg") %></p>
+<p><%= link_to("Sign Up via Facebook", "/auth/facebook", :class => "btn btn-default bgn-lg") %></p>
+
+<h2>Normal Sign Up</h2>
+<p>If you do not wish to sign up via Google or Facebook and prefer the old school
+username and password. By the way the email field is optional too.</p>
 <%= bootstrap_form_for(@user) do |f| %>
   <%= f.text_field :username %>
   <%= f.text_field :email %>
