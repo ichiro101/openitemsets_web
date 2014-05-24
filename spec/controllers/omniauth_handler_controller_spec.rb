@@ -58,6 +58,76 @@ describe OmniauthHandlerController do
         user.should_not be_blank
         user.email_confirmed.should == true
       end
+
+      it "should create an user provider record" do
+        UserProvider.count.should > 0
+      end
+
+      it "should create a user provider record that links with the created user record" do
+        user = User.where(:email => "john@company_name.com").first
+        user_provider = UserProvider.where(:user_id => user.id).first
+        user_provider.should_not be_blank
+      end
+
+      it "should sign the user in" do
+        user = User.where(:email => "john@company_name.com").first
+        session[:user_id].should == user.id
+      end
+    end # new account
+
+    context "user has an existing account with same email" do
+      before(:each) do
+        @user = FactoryGirl.create(:user, :email => "john@company_name.com")
+        get :handle_google
+      end
+
+      it "should redirect the user" do
+        response.should be_redirect
+      end
+
+      it "should not create a new account" do
+        User.count.should == 1
+      end
+
+      it "should set the user's email as confirmed" do
+        User.find(@user.id).email_confirmed.should == true
+      end
+
+      it "should create an user provider record" do
+        UserProvider.count.should > 0
+      end
+
+      it "should create a user provider record that links with the existing user record" do
+        user_provider = UserProvider.where(:user_id => @user.id).first
+        user_provider.should_not be_blank
+      end
+
+      it "should sign the user in" do
+        session[:user_id].should == @user.id
+      end
+    end
+
+    context "user provider record already exists" do
+      before(:each) do
+        @user = FactoryGirl.create(:user, :email => "john2@company_name.com")
+        @user_provider = FactoryGirl.create(:user_provider,
+            :user_id => @user.id,
+            :provider => "google_oauth2",
+            :uid => "123456789")
+        get :handle_google
+      end
+
+      it "should not create an extra user record" do
+        User.count.should == 1
+      end
+
+      it "should not create an extra user provider record" do
+        UserProvider.count.should == 1
+      end
+
+      it "should sign the user in" do
+        session[:user_id].should == @user.id
+      end
     end
   end
 end
