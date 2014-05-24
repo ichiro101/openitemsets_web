@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   get '/password_reset/reset_receive', :to => 'password_reset#reset_receive'
   put '/password_reset/reset_change_password', :to => 'password_reset#reset_change_password'
 
+  # omniauth callback routes
+  get '/auth/google_oauth2/callback', :to => 'omniauth_handler#handle_google'
+
   # api routes
   scope '/api' do
     get 'get_user', :to => 'client_api#get_user'

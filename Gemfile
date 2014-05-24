@@ -32,6 +32,9 @@ gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'gon'
 gem 'gravatar_image_tag'
+gem 'omniauth'
+gem "omniauth-google-oauth2"
+gem 'omniauth-facebook'
 
 # for riot api
 gem 'outrageous'

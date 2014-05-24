@@ -1,4 +1,10 @@
+<h2>Google/Facebook Login</h2>
 
+<p>
+<%= link_to("Google Login", "/auth/google_oauth2") %>
+</p>
+
+<h2>Normal Login</h2>
 <%= bootstrap_form_tag :url => sessions_path, :method => :post do |f| %>
   <%= f.text_field :username %>
   <%= f.password_field :password %>
