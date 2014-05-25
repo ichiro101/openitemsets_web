@@ -1,6 +1,12 @@
 class SessionsController < ApplicationController
 
   def create
+    if params[:username].blank? or params[:password].blank?
+      flash[:danger] = "Username or password field is blank"
+      redirect_to new_session_path
+      return
+    end
+
     @user = User.authenticate(params[:username], params[:password])
 
     if @user.blank?

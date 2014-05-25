@@ -2,6 +2,12 @@ class ClientApiController < ApplicationController
 
   def get_user
     query = params[:query]
+
+    if query.blank?
+      render :text => 'error: user not found'
+      return
+    end
+
     user = User.where(:username => query).first
 
     if user.blank?
