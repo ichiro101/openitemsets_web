@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :item_sets
 
-  validates :username, :uniqueness => true
+  validates :username, :uniqueness => true, :presence => true
+  validates :password, :presence => true
   validates :email, :uniqueness => true
 
   before_create :set_email_confirmation_token
