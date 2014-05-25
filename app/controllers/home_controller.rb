@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def install
-    @version = "0.0.2"
+    @version = "0.0.2b"
   end
 
 end
