@@ -18,6 +18,10 @@ class ItemSet < ActiveRecord::Base
   MAP_TWISTED_TREELINE = 10
   MAP_HOWLING_ABYSS = 12
 
+  # maximum limits (these are very generous hard limits)
+  SUBSCRIPTION_LIMIT = 1000
+  OWNERSHIP_LIMIT = 1000
+
   # This class solely exists to get around
   # rails-bootstrap-forms's dumb limitation in the collections helper
   class Visibility
@@ -50,6 +54,8 @@ class ItemSet < ActiveRecord::Base
   # make sure the json isn't TOO long that it would crash our servers, most item sets will probably never
   # even be close to this limit
   validates_length_of :item_set_json, :maximum => 10000
+
+  validate :limit_owner
 
   before_save :parse_json
 
@@ -115,6 +121,14 @@ class ItemSet < ActiveRecord::Base
     end
 
     Subscription.create(:item_set_id => self.id, :user_id => self.user_id)
+  end
+
+  # NOTE: we may want to add a bot excemption...
+  def limit_owner
+    count = ItemSet.where(:user_id => self.user_id).count
+    if count >= OWNERSHIP_LIMIT
+      self.errors.add(:base, 'You cannot create more item sets')
+    end
   end
 
   private

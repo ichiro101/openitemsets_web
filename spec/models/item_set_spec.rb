@@ -25,7 +25,8 @@ describe ItemSet do
 
   it "should delete all subscriptions once the record is destroyed" do
     Subscription.count.should == 0
-    item_set = FactoryGirl.create(:item_set)
+    user = FactoryGirl.create(:user, :username => "some user", :email => "anyuser@example.com")
+    item_set = FactoryGirl.create(:item_set, :user => user)
     Subscription.count.should == 1
     item_set.destroy
     Subscription.count.should == 0
@@ -144,6 +145,49 @@ describe ItemSet do
       }.to_json
 
       @item_set.to_game_json.should == output_json
+    end
+  end
+
+  context "testing limits (this will take a while)" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, :username => "heavy user", :email => "heavy_user@example.com")
+    end
+
+    it "should limit the ownership" do
+      ItemSet::OWNERSHIP_LIMIT.times do
+        FactoryGirl.create(:item_set, :user_id => @user.id)
+      end
+
+      ItemSet.where(:user_id => @user.id).count.should == ItemSet::OWNERSHIP_LIMIT
+
+      another_item_set = FactoryGirl.build(:item_set, :user_id => @user.id)
+      another_item_set.save.should be_false
+    end
+
+    it "should limit the number of subscriptions" do
+      # set up all the item sets
+      some_random_user = FactoryGirl.create(:user,
+                                            :username => "corki",
+                                            :email => "corki@example.com")
+      another_user = FactoryGirl.create(:user,
+                                        :username => "anotheruser",
+                                        :email => "anotheruser@example.com")
+
+      ItemSet::SUBSCRIPTION_LIMIT.times do
+        item_set = FactoryGirl.create(:item_set, :user_id => some_random_user.id)
+
+        # subscribe the user to the item set
+        FactoryGirl.create(:subscription, :item_set_id => item_set.id, :user_id => @user.id)
+      end
+
+      # create another item set for subscription
+      another_item_set = FactoryGirl.build(:item_set, :user_id => another_user.id)
+      another_item_set.save.should_not be_false
+
+      # should not be able to subscribe another item set
+      another_subscription = FactoryGirl.build(:subscription, :item_set_id => another_item_set.id,
+                                               :user_id => @user.id)
+      another_subscription.save.should be_false
     end
   end
 end

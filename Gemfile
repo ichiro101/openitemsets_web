@@ -46,6 +46,7 @@ gem 'capybara'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'guard-rspec'
+gem 'database_cleaner'
 
 # bootstrap and frontend stuff
 gem 'bootstrap-sass', '~> 3.1.1'
