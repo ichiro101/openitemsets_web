@@ -344,8 +344,8 @@ itemSetNamespace.controller("itemSetsController", ['$scope', '$http', ($scope, $
         $scope.itemSetBlocks.push(block)
     else
       $scope.itemSetBlocks = [
-        name: "Starting Items"
-        items: [1001]
+        name: "Consumables"
+        items: [2003, 2004, 3340, 3341, 3342, 2044, 2043]
       ]
 
     # initialize oldItemSetBlocks, so we can compare to see
