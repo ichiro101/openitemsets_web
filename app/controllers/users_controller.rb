@@ -31,6 +31,13 @@ class UsersController < ApplicationController
   def profile
     @user = User.where(:id => params[:id]).first
     @page_title = "Profile for #{@user.display_name}"
+
+    # get list of subscriptions to display
+    @subscription_list = []
+    raw_subscription_list = @user.subscriptions
+    raw_subscription_list.all.each do |subscription|
+      @subscription_list << subscription.item_set if subscription.item_set.user_id != @user.id
+    end
   end
 
   def resend

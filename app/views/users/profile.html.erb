@@ -21,4 +21,11 @@
       <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
     <% end %>
   </div><!-- col -->
+  <div class="col-lg-6">
+    <h3>Item Set Subscriptions</h3>
+    <p>This will only show item set subscriptions that don't belong to this user.</p>
+    <% @subscription_list.each do |item_set| %>
+      <%= render :partial => "partials/item_set_media", :locals => {:item_set => item_set} %>
+    <% end %>
+  </div><!-- col -->
 </div>
