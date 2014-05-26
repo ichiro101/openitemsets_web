@@ -4,6 +4,11 @@ namespace :test_data do
 
   desc "Create test data"
   task :create => :environment do
+    # DO NOT RUN THIS ON PRODUCTION, EVER
+    if Rails.env.production?
+      raise StandardError, "Cannot run test on production"
+    end
+
     10.times do
       FactoryGirl.create(:user, 
                          :username => Faker::Name.name,
