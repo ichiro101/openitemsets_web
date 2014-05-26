@@ -15,6 +15,7 @@ namespace :test_data do
     100.times do
       FactoryGirl.create(:item_set,
                          :title => Faker::Lorem.sentence,
+                         :role => ItemSet::ROLES.sample,
                          :user => User.all.sample,
                          :champion => Champion.all.sample.id)
     end
