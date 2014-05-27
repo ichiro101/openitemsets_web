@@ -122,6 +122,10 @@
           <li><%= link_to('Web App Source Code', 'http://www.github.com/ichiro101/openitemsets_web') %></li>
           <li><%= link_to("Desktop Client Source Code", "https://github.com/ichiro101/OpenItemSets_NativeClient") %></li>
         </ul>
+
+        <% if signed_in? && current_user.admin? %>
+          <%= link_to("Administrator Panel", "/admin") %>
+        <% end %>
       </footer>
 
     </div> <!-- /container -->

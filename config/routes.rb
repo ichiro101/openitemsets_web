@@ -46,6 +46,15 @@ Rails.application.routes.draw do
   get '/tos', :to => 'home#tos'
   get '/privacy', :to => 'home#privacy'
   get '/about_us', :to => 'home#about_us'
+
+
+  # administration panel
+  namespace :admin do
+    resources :errors
+    root :to => 'home#index'
+  end
+
+
   root :to => "home#index"
 
 end
