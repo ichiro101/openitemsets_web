@@ -59,7 +59,6 @@ gem 'jquery-turbolinks'
 
 # deployment
 gem 'thin'
-gem 'newrelic_rpm'
 
 # Use unicorn as the app server
 # gem 'unicorn'

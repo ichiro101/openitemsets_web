@@ -12,4 +12,8 @@ module ItemSetsHelper
     Item.item_hash["data"][item_id.to_s]["description"]
   end
 
+  def item_name(item_id)
+    Item.item_hash["data"][item_id.to_s]["name"]
+  end
+
 end

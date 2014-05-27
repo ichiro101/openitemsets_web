@@ -383,7 +383,7 @@ itemSetNamespace.directive('itemDraggable', () ->
 )
 
 setItemTooltip = (itemData, itemId) ->
-  tooltipString = "#{itemData[itemId].name}<br><br>
+  tooltipString = "<strong>#{itemData[itemId].name}</strong><br><br>
    #{itemData[itemId].description}"
   tooltipString
 
