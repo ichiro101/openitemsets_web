@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in?
   helper_method :current_user
 
+  rescue_from Exception, :with => :error_handler
+
   def signed_in?
     if User.where(:id => session[:user_id]).blank?
       # if session[:user_id] is invalid, clear the session
@@ -34,6 +36,19 @@ class ApplicationController < ActionController::Base
     else
       redirect_to root_url
     end
+  end
+
+
+  def error_handler(exception)
+    e = ExceptionRecord.new
+    e.class_name = exception.class.to_s
+    e.backtrace = exception.backtrace.join('<br>')
+    e.message = exception.message
+    e.save
+
+    @page_title = "An error has occured"
+
+    render "home/500"
   end
 
 end

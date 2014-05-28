@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526162603) do
+ActiveRecord::Schema.define(version: 20140528053021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exception_records", force: true do |t|
+    t.string   "class_name"
+    t.string   "message"
+    t.text     "backtrace"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "item_set_comments", force: true do |t|
     t.integer  "item_set_id", null: false
