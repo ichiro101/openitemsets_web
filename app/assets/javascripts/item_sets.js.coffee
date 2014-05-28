@@ -387,8 +387,17 @@ itemSetNamespace.directive('itemDraggable', () ->
     elem.contextmenu(
       target: "#context-menu"
       onItem: (context, e) ->
-        console.log(context)
-        console.log(e)
+        # get the item id
+        itemId = context.attr('data-item-id')
+        itemId = parseInt(itemId)
+
+        # get the block index
+        blockIndex = e.target.getAttribute('data-block-index')
+        blockIndex = parseInt(blockIndex)
+
+        # add the item to the block on the item set
+        scope.$parent.itemSetBlocks[blockIndex].items.push(itemId)
+        scope.$parent.$apply()
     )
 )
 

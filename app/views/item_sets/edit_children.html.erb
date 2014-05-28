@@ -213,8 +213,8 @@
   <!-- CONTEXT MENU (THIS SHOULD BE INVISIBLE BY DEFAULT) -->
   <div id="context-menu">
     <ul class="dropdown-menu" role="menu">
-      <li ng-repeat="blockElement in itemSetBlocks">
-      <a tabindex="-1" href="#">Add to {{blockElement.name}}</a>
+      <li ng-repeat="blockElement in itemSetBlocks track by $index">
+      <a tabindex="-1" data-block-index="{{$index}}" href="#">Add to {{blockElement.name}}</a>
       </li>
     </div>
   </div>
