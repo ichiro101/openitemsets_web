@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::HomeController do
+describe Admin::ExceptionRecordsController do
 
   describe "index" do
     def send_request
@@ -9,4 +9,5 @@ describe Admin::HomeController do
 
     it_behaves_like "require administrative access"
   end
+
 end

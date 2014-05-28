@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   # administration panel
   namespace :admin do
+    resources :exception_records
     root :to => 'home#index'
   end
 

@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in?
   helper_method :current_user
 
-  rescue_from Exception, :with => :error_handler
+  # if we are running in production, we should add exceptions to
+  # the database
+  if Rails.env.production?
+    rescue_from Exception, :with => :error_handler
+  end
 
   def signed_in?
     if User.where(:id => session[:user_id]).blank?

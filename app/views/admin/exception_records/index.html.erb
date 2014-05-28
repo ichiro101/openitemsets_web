@@ -1,0 +1,29 @@
+
+<% if @exception_records.count > 0 %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Exception Class</th>
+      <th>Exception Message</th>
+      <th>Time</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exception_records.each do |exception_record| %>
+      <tr>
+        <td><%= exception_record.class_name %></td>
+        <td><%= exception_record.message %></td>
+        <td><%= time_ago_in_words(exception_record.updated_at) %> ago</td>
+        <td>
+          <button class="btn btn-default">Show Traceback</button>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @exception_records %>
+<% else %>
+  <p>No information to display</p>
+<% end %>
