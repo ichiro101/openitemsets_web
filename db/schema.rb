@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20140528053021) do
   enable_extension "plpgsql"
 
   create_table "exception_records", force: true do |t|
-    t.string   "class_name"
-    t.string   "message"
+    t.text     "class_name"
+    t.text     "message"
     t.text     "backtrace"
     t.datetime "created_at"
     t.datetime "updated_at"
