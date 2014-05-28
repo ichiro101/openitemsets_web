@@ -430,6 +430,27 @@ itemSetNamespace.directive('setItemDraggable', () ->
     elem.draggable(
       revert: true
     )
+
+    elem.contextmenu(
+      target: "#set-context-menu"
+      onItem: (context, e) ->
+        # get the menu action
+        menuAction = e.target.getAttribute('data-menu-action')
+
+        # get the index of the item in the block array it was clicked from
+        itemIndex = context.attr("data-index")
+        itemIndex = parseInt(itemIndex)
+
+        # get the block index of the item it was clicked from
+        blockIndex = context.attr("data-block-index")
+        blockIndex = parseInt(blockIndex)
+
+        if menuAction == "Remove"
+          # when remove is selected, we want to remove the
+          # item from the block
+          scope.$parent.itemSetBlocks[blockIndex].items.splice(itemIndex, 1)
+          scope.$parent.$apply()
+    )
 )
 
 itemSetNamespace.directive('itemDroppable', () ->
