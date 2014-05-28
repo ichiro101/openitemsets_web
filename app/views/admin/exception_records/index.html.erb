@@ -16,7 +16,7 @@
         <td><%= exception_record.message %></td>
         <td><%= time_ago_in_words(exception_record.updated_at) %> ago</td>
         <td>
-          <button class="btn btn-default">Show Traceback</button>
+          <button class="btn btn-default" data-toggle="modal" data-target="#backtrace-<%= exception_record.id %>">Show Traceback</button>
         </td>
       </tr>
     <% end %>
@@ -26,4 +26,20 @@
 <%= paginate @exception_records %>
 <% else %>
   <p>No information to display</p>
+<% end %>
+
+<% @exception_records.each do |exception_record| %>
+  <div class="modal fade" id="backtrace-<%= exception_record.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Backtrace</h4>
+        </div>
+        <div class="modal-body">
+          <%= raw exception_record.backtrace %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
