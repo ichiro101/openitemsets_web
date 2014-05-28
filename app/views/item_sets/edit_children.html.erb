@@ -145,7 +145,7 @@
       <div class="col-sm-8">
         <h4>Item List</h4>
         <div id="item-shop">
-          <p>Drag these items onto the item set panel, or click on them to add to the item set.</p>
+          <p>Drag these items onto the item set panel, or right click on them to add to the item set.</p>
           <div data-toggle="tooltip" data-placement="auto" item-draggable class="item" 
             ng-repeat="item in selectedItems | filter:query" data-from-shop="1" data-item-id="{{item.id}}">
             <img ng-src="http://static.openitemsets.com/img/item/{{item.id}}.png"></img>
@@ -210,4 +210,13 @@
   </div><!-- col-sm-6 -->
   <!-- END OF RIGHT COLUMN -->
 
+  <!-- CONTEXT MENU (THIS SHOULD BE INVISIBLE BY DEFAULT) -->
+  <div id="context-menu">
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="blockElement in itemSetBlocks">
+      <a tabindex="-1" href="#">Add to {{blockElement.name}}</a>
+      </li>
+    </div>
+  </div>
+  <!-- END OF CONTEXT MENU -->
 </div><!-- row -->

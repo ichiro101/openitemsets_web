@@ -357,6 +357,8 @@ itemSetNamespace.controller("itemSetsController", ['$scope', '$http', ($scope, $
   ]
 )
 
+# itemDraggable is set on to the items that are on the left side
+# (the shop)
 itemSetNamespace.directive('itemDraggable', () ->
   restrict: 'A'
   link: (scope, elem, attrs) ->
@@ -380,6 +382,14 @@ itemSetNamespace.directive('itemDraggable', () ->
       revert: "invalid"
       helper: "clone"
     )
+
+    # enable adding to item set through context menu
+    elem.contextmenu(
+      target: "#context-menu"
+      onItem: (context, e) ->
+        console.log(context)
+        console.log(e)
+    )
 )
 
 setItemTooltip = (itemData, itemId) ->
@@ -387,6 +397,8 @@ setItemTooltip = (itemData, itemId) ->
    #{itemData[itemId].description}"
   tooltipString
 
+# setItemDraggable is set on to the items that are on the right side
+# they are items that are inside of an item set
 itemSetNamespace.directive('setItemDraggable', () ->
   restrict: 'A'
   link: (scope, elem, attrs) ->

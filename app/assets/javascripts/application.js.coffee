@@ -18,6 +18,7 @@
 #= require angular
 #= require checklist-model
 #= require bootstrap
+#= require contextmenu
 #= require turbolinks
 #= require syntax-highlighter-rails/shCore
 #= require syntax-highlighter-rails/shBrushJScript
