@@ -45,6 +45,7 @@ namespace :riot do
     items = items_client.all(:itemListData => 'all')
 
     puts "Writing Items, Ver #{items['version']}"
+    puts "Writing Items: #{items.to_json}"
     redis.set("items", items.to_json)
 
     puts "Updated riot api item database"
@@ -68,6 +69,7 @@ namespace :riot do
     champions = champions_client.all(:champData => 'all')
 
     puts "Writing Champions, Ver #{champions['version']}"
+    puts "Writing Champions: #{champions.to_json}"
     redis.set("champions", champions.to_json)
 
     puts "Updated riot api champion database"

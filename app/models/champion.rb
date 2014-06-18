@@ -15,7 +15,7 @@ class Champion
     champ_data.each do |key, record|
       champ = Champion.new
 
-      champ.id = record["id"]
+      champ.id = record["key"]
       champ.name = record["name"]
       champ.title = record["title"]
       champion_array << champ
