@@ -43,6 +43,8 @@ namespace :riot do
 
     items_client = Outrageous::StaticData::Item.new(:api_key => riot_api_key)
     items = items_client.all(:itemListData => 'all')
+
+    puts "Writing: #{items.to_json}"
     redis.set("items", items.to_json)
 
     puts "Updated riot api item database"
@@ -64,6 +66,8 @@ namespace :riot do
 
     champions_client = Outrageous::StaticData::Champion.new(:api_key => riot_api_key)
     champions = champions_client.all(:champData => 'all')
+
+    puts "Writing: #{champions.to_json}"
     redis.set("champions", champions.to_json)
 
     puts "Updated riot api champion database"
