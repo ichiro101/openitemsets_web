@@ -37,7 +37,7 @@ gem "omniauth-google-oauth2"
 gem 'omniauth-facebook'
 
 # for riot api
-gem 'outrageous'
+gem 'outrageous', :git => 'https://github.com/ichiro101/outrageous.git'
 gem 'redis'
 
 # testing
